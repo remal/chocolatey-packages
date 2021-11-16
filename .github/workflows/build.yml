@@ -24,6 +24,16 @@ jobs:
       with:
         fetch-depth: 2
 
+    - name: Check remal-packages.extension changes
+      id: remal-packages-extension-changes
+      uses: tj-actions/changed-files@v11.6
+      with:
+        files: ^remal-packages.extension/
+    - name: Pack remal-packages.extension
+      if: ${{steps.remal-packages-extension-changes.outputs.any_changed == 'true' || steps.remal-packages-extension-changes.outputs.any_deleted == 'true'}}
+      run: |
+        choco pack remal-packages.extension\remal-packages.extension.nuspec --outputdirectory .packed
+
     - name: Check npp-editorconfig changes
       id: npp-editorconfig-changes
       uses: tj-actions/changed-files@v11.6
@@ -33,6 +43,36 @@ jobs:
       if: ${{steps.npp-editorconfig-changes.outputs.any_changed == 'true' || steps.npp-editorconfig-changes.outputs.any_deleted == 'true'}}
       run: |
         choco pack npp-editorconfig\npp-editorconfig.nuspec --outputdirectory .packed
+
+    - name: Check remal-jdk8 changes
+      id: remal-jdk8-changes
+      uses: tj-actions/changed-files@v11.6
+      with:
+        files: ^remal-jdk8/
+    - name: Pack remal-jdk8
+      if: ${{steps.remal-jdk8-changes.outputs.any_changed == 'true' || steps.remal-jdk8-changes.outputs.any_deleted == 'true'}}
+      run: |
+        choco pack remal-jdk8\remal-jdk8.nuspec --outputdirectory .packed
+
+    - name: Check remal-jdk11 changes
+      id: remal-jdk11-changes
+      uses: tj-actions/changed-files@v11.6
+      with:
+        files: ^remal-jdk11/
+    - name: Pack remal-jdk11
+      if: ${{steps.remal-jdk11-changes.outputs.any_changed == 'true' || steps.remal-jdk11-changes.outputs.any_deleted == 'true'}}
+      run: |
+        choco pack remal-jdk11\remal-jdk11.nuspec --outputdirectory .packed
+
+    - name: Check remal-jdk17 changes
+      id: remal-jdk17-changes
+      uses: tj-actions/changed-files@v11.6
+      with:
+        files: ^remal-jdk17/
+    - name: Pack remal-jdk17
+      if: ${{steps.remal-jdk17-changes.outputs.any_changed == 'true' || steps.remal-jdk17-changes.outputs.any_deleted == 'true'}}
+      run: |
+        choco pack remal-jdk17\remal-jdk17.nuspec --outputdirectory .packed
 
     - name: Push back
       env:

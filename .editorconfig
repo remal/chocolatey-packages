@@ -357,7 +357,20 @@ max_line_length = 999
 end_of_line = crlf
 max_line_length = 999
 
-[*.{ps1, nuspec}]
+[*.nuspec]
 charset = utf-8-bom
 end_of_line = crlf
 max_line_length = 999
+tab_width = 2
+indent_size = 2
+continuation_indent_size = 2
+ij_continuation_indent_size = 2
+
+[*.{ps1, psm1}]
+charset = utf-8-bom
+end_of_line = crlf
+max_line_length = 999
+tab_width = 2
+indent_size = 2
+continuation_indent_size = 2
+ij_continuation_indent_size = 2
