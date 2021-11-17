@@ -54,6 +54,16 @@ jobs:
       run: |
         choco pack remal-jdk8\remal-jdk8.nuspec --outputdirectory .packed
 
+    - name: Check remal-jdk8-main changes
+      id: remal-jdk8-main-changes
+      uses: tj-actions/changed-files@v11.6
+      with:
+        files: ^remal-jdk8-main/
+    - name: Pack remal-jdk8-main
+      if: ${{steps.remal-jdk8-main-changes.outputs.any_changed == 'true' || steps.remal-jdk8-main-changes.outputs.any_deleted == 'true'}}
+      run: |
+        choco pack remal-jdk8-main\remal-jdk8-main.nuspec --outputdirectory .packed
+
     - name: Check remal-jdk11 changes
       id: remal-jdk11-changes
       uses: tj-actions/changed-files@v11.6
@@ -64,6 +74,16 @@ jobs:
       run: |
         choco pack remal-jdk11\remal-jdk11.nuspec --outputdirectory .packed
 
+    - name: Check remal-jdk11-main changes
+      id: remal-jdk11-main-changes
+      uses: tj-actions/changed-files@v11.6
+      with:
+        files: ^remal-jdk11-main/
+    - name: Pack remal-jdk11-main
+      if: ${{steps.remal-jdk11-main-changes.outputs.any_changed == 'true' || steps.remal-jdk11-main-changes.outputs.any_deleted == 'true'}}
+      run: |
+        choco pack remal-jdk11-main\remal-jdk11-main.nuspec --outputdirectory .packed
+
     - name: Check remal-jdk17 changes
       id: remal-jdk17-changes
       uses: tj-actions/changed-files@v11.6
@@ -73,6 +93,16 @@ jobs:
       if: ${{steps.remal-jdk17-changes.outputs.any_changed == 'true' || steps.remal-jdk17-changes.outputs.any_deleted == 'true'}}
       run: |
         choco pack remal-jdk17\remal-jdk17.nuspec --outputdirectory .packed
+
+    - name: Check remal-jdk17-main changes
+      id: remal-jdk17-main-changes
+      uses: tj-actions/changed-files@v11.6
+      with:
+        files: ^remal-jdk17-main/
+    - name: Pack remal-jdk17-main
+      if: ${{steps.remal-jdk17-main-changes.outputs.any_changed == 'true' || steps.remal-jdk17-main-changes.outputs.any_deleted == 'true'}}
+      run: |
+        choco pack remal-jdk17-main\remal-jdk17-main.nuspec --outputdirectory .packed
 
     - name: Push back
       env:

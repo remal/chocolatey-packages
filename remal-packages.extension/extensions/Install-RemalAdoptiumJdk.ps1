@@ -45,4 +45,10 @@ param(
   }
   Uninstall-RemalPath @args
 
+  $args = @{
+    PathToUninstall = 'C:\Program Files\Java\jdk-'+$version+'\bin\'
+    PathType = 'Machine'
+  }
+  Uninstall-RemalPath @args
+
 }

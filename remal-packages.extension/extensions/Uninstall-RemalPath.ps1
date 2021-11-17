@@ -7,18 +7,36 @@ param(
 
   Write-FunctionCallLogMessage -Invocation $MyInvocation -Parameters $PSBoundParameters
 
-  $actualPath = Get-EnvironmentVariable -Name 'Path' -Scope $pathType -PreserveVariables
-  if ($actualPath.ToLower().StartsWith($pathToUninstall.ToLower() + ';')) {
-    $actualPath = $actualPath.substring($pathToUninstall.length + 1)
-    Install-ChocolateyEnvironmentVariable -variableName 'Path' -variableValue $actualPath -variableType $pathType
+  $actualPath = Get-EnvironmentVariable -Name 'PATH' -Scope $pathType -PreserveVariables
+  $currentPath = $actualPath
+  $actualPath = ';' + $actualPath + ';'
 
-  } elseif ($actualPath.ToLower().EndsWith(';' + $pathToUninstall.ToLower())) {
-    $actualPath = $actualPath.substring($actualPath.length - $pathToUninstall.length - 1)
-    Install-ChocolateyEnvironmentVariable -variableName 'Path' -variableValue $actualPath -variableType $pathType
+  while ($true) {
+    $pos = $actualPath.ToLower().IndexOf(';' + $pathToUninstall.ToLower() + ';')
+    if ($pos -ge 0) {
+      $actualPath = $actualPath.substring(0, $pos) + $actualPath.substring($pos + $pathToUninstall.length + 1)
+    } else {
+      break
+    }
+  }
 
-  } elseif ($actualPath.ToLower().Contains(';' + $pathToUninstall.ToLower() + ';')) {
-    $actualPath = $actualPath.Replace(';' + $pathToUninstall.ToLower() + ';', ';')
-    Install-ChocolateyEnvironmentVariable -variableName 'Path' -variableValue $actualPath -variableType $pathType
+  while ($true) {
+    if ($actualPath -eq '') {
+      break
+    } elseif ($actualPath.substring(0, 1) -eq ';') {
+      $actualPath = $actualPath.substring(1)
+    } elseif ($actualPath.substring($actualPath.length - 1) -eq ';') {
+      $actualPath = $actualPath.substring(0, $actualPath.length - 1)
+    } else {
+      break
+    }
+  }
+
+  if ($currentPath -ne $actualPath) {
+    Install-ChocolateyEnvironmentVariable -variableName 'PATH' -variableValue $actualPath -variableType $pathType
+
+    $envPSPath = $env:PATH
+    $env:Path = $actualPath
   }
 
 }

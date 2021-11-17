@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>remal-jdk8-main</id>
+    <version>8.0.302.7</version>
+    <title>Temurin JDK 8 as a main JDK on the machine</title>
+    <authors>Semyon Levin</authors>
+    <description>Temurin JDK 8 as a main JDK on the machine</description>
+    <dependencies>
+      <dependency id="remal-jdk8" version="8.0.302.7" />
+      <dependency id="remal-packages.extension" version="0.1" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
