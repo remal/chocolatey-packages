@@ -34,6 +34,16 @@ jobs:
       run: |
         choco pack remal-packages.extension\remal-packages.extension.nuspec --outputdirectory .packed
 
+    - name: Check npp-compare changes
+      id: npp-compare-changes
+      uses: tj-actions/changed-files@v11.6
+      with:
+        files: ^npp-compare/
+    - name: Pack npp-compare
+      if: ${{steps.npp-compare-changes.outputs.any_changed == 'true' || steps.npp-compare-changes.outputs.any_deleted == 'true'}}
+      run: |
+        choco pack npp-compare\npp-compare.nuspec --outputdirectory .packed
+
     - name: Check npp-editorconfig changes
       id: npp-editorconfig-changes
       uses: tj-actions/changed-files@v11.6
@@ -44,15 +54,15 @@ jobs:
       run: |
         choco pack npp-editorconfig\npp-editorconfig.nuspec --outputdirectory .packed
 
-    - name: Check npp-compare changes
-      id: npp-compare-changes
+    - name: Check npp-jstool changes
+      id: npp-jstool-changes
       uses: tj-actions/changed-files@v11.6
       with:
-        files: ^npp-compare/
-    - name: Pack npp-compare
-      if: ${{steps.npp-compare-changes.outputs.any_changed == 'true' || steps.npp-compare-changes.outputs.any_deleted == 'true'}}
+        files: ^npp-jstool/
+    - name: Pack npp-jstool
+      if: ${{steps.npp-jstool-changes.outputs.any_changed == 'true' || steps.npp-jstool-changes.outputs.any_deleted == 'true'}}
       run: |
-        choco pack npp-compare\npp-compare.nuspec --outputdirectory .packed
+        choco pack npp-jstool\npp-jstool.nuspec --outputdirectory .packed
 
     - name: Check remal-jdk8 changes
       id: remal-jdk8-changes
