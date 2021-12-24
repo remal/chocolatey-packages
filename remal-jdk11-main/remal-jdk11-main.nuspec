@@ -2,12 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>remal-jdk11-main</id>
-    <version>11.0.13.8</version>
+    <version>11.0.13</version>
     <title>Temurin JDK 11 as a main JDK on the machine</title>
     <authors>Semyon Levin</authors>
     <description>Temurin JDK 11 as a main JDK on the machine</description>
     <dependencies>
-      <dependency id="remal-jdk11" version="11.0.13.8" />
+      <dependency id="remal-jdk11" version="11.0.13" />
       <dependency id="remal-packages.extension" version="0.1" />
     </dependencies>
   </metadata>
