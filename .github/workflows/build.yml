@@ -32,7 +32,7 @@ jobs:
     - name: Pack remal-packages.extension
       if: ${{steps.remal-packages-extension-changes.outputs.any_changed == 'true' || steps.remal-packages-extension-changes.outputs.any_deleted == 'true'}}
       run: |
-        choco pack remal-packages.extension\remal-packages.extension.nuspec --outputdirectory .packed
+        pack-and-push "remal-packages.extension" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
     - name: Check npp-compare changes
       id: npp-compare-changes
@@ -42,7 +42,7 @@ jobs:
     - name: Pack npp-compare
       if: ${{steps.npp-compare-changes.outputs.any_changed == 'true' || steps.npp-compare-changes.outputs.any_deleted == 'true'}}
       run: |
-        choco pack npp-compare\npp-compare.nuspec --outputdirectory .packed
+        pack-and-push "npp-compare" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
     - name: Check npp-editorconfig changes
       id: npp-editorconfig-changes
@@ -52,7 +52,7 @@ jobs:
     - name: Pack npp-editorconfig
       if: ${{steps.npp-editorconfig-changes.outputs.any_changed == 'true' || steps.npp-editorconfig-changes.outputs.any_deleted == 'true'}}
       run: |
-        choco pack npp-editorconfig\npp-editorconfig.nuspec --outputdirectory .packed
+        pack-and-push "npp-editorconfig" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
     - name: Check npp-jstool changes
       id: npp-jstool-changes
@@ -62,7 +62,7 @@ jobs:
     - name: Pack npp-jstool
       if: ${{steps.npp-jstool-changes.outputs.any_changed == 'true' || steps.npp-jstool-changes.outputs.any_deleted == 'true'}}
       run: |
-        choco pack npp-jstool\npp-jstool.nuspec --outputdirectory .packed
+        pack-and-push "npp-jstool" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
     - name: Check remal-jdk8 changes
       id: remal-jdk8-changes
@@ -70,9 +70,9 @@ jobs:
       with:
         files: ^remal-jdk8/
     - name: Pack remal-jdk8
-      if: ${{steps.remal-jdk8-changes.outputs.any_changed == 'true' || steps.remal-jdk8-changes.outputs.any_deleted == 'true'}}
+      #if: ${{steps.remal-jdk8-changes.outputs.any_changed == 'true' || steps.remal-jdk8-changes.outputs.any_deleted == 'true'}}
       run: |
-        choco pack remal-jdk8\remal-jdk8.nuspec --outputdirectory .packed
+        pack-and-push "remal-jdk8" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
     - name: Check remal-jdk8-main changes
       id: remal-jdk8-main-changes
@@ -80,9 +80,9 @@ jobs:
       with:
         files: ^remal-jdk8-main/
     - name: Pack remal-jdk8-main
-      if: ${{steps.remal-jdk8-main-changes.outputs.any_changed == 'true' || steps.remal-jdk8-main-changes.outputs.any_deleted == 'true'}}
+      #if: ${{steps.remal-jdk8-main-changes.outputs.any_changed == 'true' || steps.remal-jdk8-main-changes.outputs.any_deleted == 'true'}}
       run: |
-        choco pack remal-jdk8-main\remal-jdk8-main.nuspec --outputdirectory .packed
+        pack-and-push "remal-jdk8-main" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
     - name: Check remal-jdk11 changes
       id: remal-jdk11-changes
@@ -90,9 +90,9 @@ jobs:
       with:
         files: ^remal-jdk11/
     - name: Pack remal-jdk11
-      if: ${{steps.remal-jdk11-changes.outputs.any_changed == 'true' || steps.remal-jdk11-changes.outputs.any_deleted == 'true'}}
+      #if: ${{steps.remal-jdk11-changes.outputs.any_changed == 'true' || steps.remal-jdk11-changes.outputs.any_deleted == 'true'}}
       run: |
-        choco pack remal-jdk11\remal-jdk11.nuspec --outputdirectory .packed
+        pack-and-push "remal-jdk11" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
     - name: Check remal-jdk11-main changes
       id: remal-jdk11-main-changes
@@ -100,9 +100,9 @@ jobs:
       with:
         files: ^remal-jdk11-main/
     - name: Pack remal-jdk11-main
-      if: ${{steps.remal-jdk11-main-changes.outputs.any_changed == 'true' || steps.remal-jdk11-main-changes.outputs.any_deleted == 'true'}}
+      #if: ${{steps.remal-jdk11-main-changes.outputs.any_changed == 'true' || steps.remal-jdk11-main-changes.outputs.any_deleted == 'true'}}
       run: |
-        choco pack remal-jdk11-main\remal-jdk11-main.nuspec --outputdirectory .packed
+        pack-and-push "remal-jdk11-main" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
     - name: Check remal-jdk17 changes
       id: remal-jdk17-changes
@@ -110,9 +110,9 @@ jobs:
       with:
         files: ^remal-jdk17/
     - name: Pack remal-jdk17
-      if: ${{steps.remal-jdk17-changes.outputs.any_changed == 'true' || steps.remal-jdk17-changes.outputs.any_deleted == 'true'}}
+      #if: ${{steps.remal-jdk17-changes.outputs.any_changed == 'true' || steps.remal-jdk17-changes.outputs.any_deleted == 'true'}}
       run: |
-        choco pack remal-jdk17\remal-jdk17.nuspec --outputdirectory .packed
+        pack-and-push "remal-jdk17" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
     - name: Check remal-jdk17-main changes
       id: remal-jdk17-main-changes
@@ -120,15 +120,15 @@ jobs:
       with:
         files: ^remal-jdk17-main/
     - name: Pack remal-jdk17-main
-      if: ${{steps.remal-jdk17-main-changes.outputs.any_changed == 'true' || steps.remal-jdk17-main-changes.outputs.any_deleted == 'true'}}
+      #if: ${{steps.remal-jdk17-main-changes.outputs.any_changed == 'true' || steps.remal-jdk17-main-changes.outputs.any_deleted == 'true'}}
       run: |
-        choco pack remal-jdk17-main\remal-jdk17-main.nuspec --outputdirectory .packed
+        pack-and-push "remal-jdk17-main" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
     - name: Push back
       env:
-        PUSH_BACK_TOKEN: ${{ secrets.PUSH_BACK_TOKEN }}
-      if: ${{ env.PUSH_BACK_TOKEN && github.event_name == 'push' && startsWith(github.ref, 'refs/heads/') }}
+        PUSH_BACK_TOKEN: ${{secrets.PUSH_BACK_TOKEN}}
+      if: ${{env.PUSH_BACK_TOKEN && github.event_name == 'push' && startsWith(github.ref, 'refs/heads/')}}
       uses: remal-github-actions/push-back@v1
       with:
-        githubToken: ${{ env.PUSH_BACK_TOKEN }}
+        githubToken: ${{env.PUSH_BACK_TOKEN}}
         message: '[push-back] Push-back updated files during build'
