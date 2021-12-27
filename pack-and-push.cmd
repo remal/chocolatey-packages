@@ -14,8 +14,6 @@ choco pack "%PACKAGE%\%PACKAGE%.nuspec" --outputdirectory "%TEMP_DIR%"
   exit %ERRORLEVEL%
 )
 
-copy /Y "%TEMP_DIR%" .packed
-
 pushd "%TEMP_DIR%"
 choco push -source "%REPOSITORY%" --apikey "%REPOSITORY_TOKEN%"
 @if %ERRORLEVEL% NEQ 0 (
@@ -24,3 +22,5 @@ choco push -source "%REPOSITORY%" --apikey "%REPOSITORY_TOKEN%"
   exit %ERRORLEVEL%
 )
 popd
+
+copy /Y "%TEMP_DIR%" .packed

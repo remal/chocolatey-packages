@@ -29,7 +29,7 @@ jobs:
       uses: tj-actions/changed-files@v11.6
       with:
         files: ^remal-packages.extension/
-    - name: Pack remal-packages.extension
+    - name: Publish remal-packages.extension
       if: ${{steps.remal-packages-extension-changes.outputs.any_changed == 'true' || steps.remal-packages-extension-changes.outputs.any_deleted == 'true'}}
       run: |
         pack-and-push "remal-packages.extension" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
@@ -39,7 +39,7 @@ jobs:
       uses: tj-actions/changed-files@v11.6
       with:
         files: ^npp-compare/
-    - name: Pack npp-compare
+    - name: Publish npp-compare
       if: ${{steps.npp-compare-changes.outputs.any_changed == 'true' || steps.npp-compare-changes.outputs.any_deleted == 'true'}}
       run: |
         pack-and-push "npp-compare" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
@@ -49,7 +49,7 @@ jobs:
       uses: tj-actions/changed-files@v11.6
       with:
         files: ^npp-editorconfig/
-    - name: Pack npp-editorconfig
+    - name: Publish npp-editorconfig
       if: ${{steps.npp-editorconfig-changes.outputs.any_changed == 'true' || steps.npp-editorconfig-changes.outputs.any_deleted == 'true'}}
       run: |
         pack-and-push "npp-editorconfig" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
@@ -59,7 +59,7 @@ jobs:
       uses: tj-actions/changed-files@v11.6
       with:
         files: ^npp-jstool/
-    - name: Pack npp-jstool
+    - name: Publish npp-jstool
       if: ${{steps.npp-jstool-changes.outputs.any_changed == 'true' || steps.npp-jstool-changes.outputs.any_deleted == 'true'}}
       run: |
         pack-and-push "npp-jstool" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
@@ -69,8 +69,8 @@ jobs:
       uses: tj-actions/changed-files@v11.6
       with:
         files: ^remal-jdk8/
-    - name: Pack remal-jdk8
-      #if: ${{steps.remal-jdk8-changes.outputs.any_changed == 'true' || steps.remal-jdk8-changes.outputs.any_deleted == 'true'}}
+    - name: Publish remal-jdk8
+      if: ${{steps.remal-jdk8-changes.outputs.any_changed == 'true' || steps.remal-jdk8-changes.outputs.any_deleted == 'true'}}
       run: |
         pack-and-push "remal-jdk8" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
@@ -79,8 +79,8 @@ jobs:
       uses: tj-actions/changed-files@v11.6
       with:
         files: ^remal-jdk8-main/
-    - name: Pack remal-jdk8-main
-      #if: ${{steps.remal-jdk8-main-changes.outputs.any_changed == 'true' || steps.remal-jdk8-main-changes.outputs.any_deleted == 'true'}}
+    - name: Publish remal-jdk8-main
+      if: ${{steps.remal-jdk8-main-changes.outputs.any_changed == 'true' || steps.remal-jdk8-main-changes.outputs.any_deleted == 'true'}}
       run: |
         pack-and-push "remal-jdk8-main" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
@@ -89,8 +89,8 @@ jobs:
       uses: tj-actions/changed-files@v11.6
       with:
         files: ^remal-jdk11/
-    - name: Pack remal-jdk11
-      #if: ${{steps.remal-jdk11-changes.outputs.any_changed == 'true' || steps.remal-jdk11-changes.outputs.any_deleted == 'true'}}
+    - name: Publish remal-jdk11
+      if: ${{steps.remal-jdk11-changes.outputs.any_changed == 'true' || steps.remal-jdk11-changes.outputs.any_deleted == 'true'}}
       run: |
         pack-and-push "remal-jdk11" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
@@ -99,8 +99,8 @@ jobs:
       uses: tj-actions/changed-files@v11.6
       with:
         files: ^remal-jdk11-main/
-    - name: Pack remal-jdk11-main
-      #if: ${{steps.remal-jdk11-main-changes.outputs.any_changed == 'true' || steps.remal-jdk11-main-changes.outputs.any_deleted == 'true'}}
+    - name: Publish remal-jdk11-main
+      if: ${{steps.remal-jdk11-main-changes.outputs.any_changed == 'true' || steps.remal-jdk11-main-changes.outputs.any_deleted == 'true'}}
       run: |
         pack-and-push "remal-jdk11-main" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
@@ -109,8 +109,8 @@ jobs:
       uses: tj-actions/changed-files@v11.6
       with:
         files: ^remal-jdk17/
-    - name: Pack remal-jdk17
-      #if: ${{steps.remal-jdk17-changes.outputs.any_changed == 'true' || steps.remal-jdk17-changes.outputs.any_deleted == 'true'}}
+    - name: Publish remal-jdk17
+      if: ${{steps.remal-jdk17-changes.outputs.any_changed == 'true' || steps.remal-jdk17-changes.outputs.any_deleted == 'true'}}
       run: |
         pack-and-push "remal-jdk17" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
@@ -119,8 +119,8 @@ jobs:
       uses: tj-actions/changed-files@v11.6
       with:
         files: ^remal-jdk17-main/
-    - name: Pack remal-jdk17-main
-      #if: ${{steps.remal-jdk17-main-changes.outputs.any_changed == 'true' || steps.remal-jdk17-main-changes.outputs.any_deleted == 'true'}}
+    - name: Publish remal-jdk17-main
+      if: ${{steps.remal-jdk17-main-changes.outputs.any_changed == 'true' || steps.remal-jdk17-main-changes.outputs.any_deleted == 'true'}}
       run: |
         pack-and-push "remal-jdk17-main" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
