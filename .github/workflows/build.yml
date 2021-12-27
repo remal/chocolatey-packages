@@ -34,6 +34,16 @@ jobs:
       run: |
         pack-and-push "remal-packages.extension" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
+    - name: Check remal-hosts changes
+      id: remal-hosts-changes
+      uses: tj-actions/changed-files@v11.6
+      with:
+        files: ^remal-hosts/
+    - name: Publish remal-hosts
+      if: ${{steps.remal-hosts-changes.outputs.any_changed == 'true' || steps.remal-hosts-changes.outputs.any_deleted == 'true'}}
+      run: |
+        pack-and-push "remal-hosts" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
+
     - name: Check npp-compare changes
       id: npp-compare-changes
       uses: tj-actions/changed-files@v11.6

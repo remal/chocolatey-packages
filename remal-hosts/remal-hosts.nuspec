@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>remal-hosts</id>
+    <version>1.0</version>
+    <authors>Semyon Levin</authors>
+    <title>Remal hosts</title>
+    <description>Remal hosts</description>
+    <dependencies>
+      <dependency id="poshhosts" version="0.2" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
