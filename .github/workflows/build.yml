@@ -124,6 +124,16 @@ jobs:
       run: |
         pack-and-push "remal-jdk17-main" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
+    - name: Check remal-root-editorconfig changes
+      id: remal-root-editorconfig-changes
+      uses: tj-actions/changed-files@v11.6
+      with:
+        files: ^remal-root-editorconfig/
+    - name: Publish remal-root-editorconfig
+      if: ${{steps.remal-root-editorconfig-changes.outputs.any_changed == 'true' || steps.remal-root-editorconfig-changes.outputs.any_deleted == 'true'}}
+      run: |
+        pack-and-push "remal-root-editorconfig" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
+
     - name: Push back
       env:
         PUSH_BACK_TOKEN: ${{secrets.PUSH_BACK_TOKEN}}
