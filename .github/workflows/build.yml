@@ -44,6 +44,16 @@ jobs:
       run: |
         pack-and-push "remal-hosts" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
+    - name: Check remal-cygwin changes
+      id: remal-cygwin-changes
+      uses: tj-actions/changed-files@v11.6
+      with:
+        files: ^remal-cygwin/
+    - name: Publish remal-cygwin
+      if: ${{steps.remal-cygwin-changes.outputs.any_changed == 'true' || steps.remal-cygwin-changes.outputs.any_deleted == 'true'}}
+      run: |
+        pack-and-push "remal-cygwin" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
+
     - name: Check npp-compare changes
       id: npp-compare-changes
       uses: tj-actions/changed-files@v11.6

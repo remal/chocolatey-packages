@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>remal-cygwin</id>
+    <version>0.1</version>
+    <title>Cygwin with consigured PATH</title>
+    <description>Cygwin with consigured PATH</description>
+    <authors>Semyon Levin</authors>
+    <dependencies>
+      <dependency id="Cygwin" version="3.3.3" />
+      <dependency id="remal-packages.extension" version="0.1" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
