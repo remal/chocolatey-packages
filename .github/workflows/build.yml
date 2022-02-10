@@ -64,6 +64,16 @@ jobs:
       run: |
         pack-and-push "remal-commands" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
 
+    - name: Check remal-epam-krb5-conf changes
+      id: remal-epam-krb5-conf-changes
+      uses: tj-actions/changed-files@v11.6
+      with:
+        files: ^remal-epam-krb5-conf/
+    - name: Publish remal-epam-krb5-conf
+      if: ${{steps.remal-epam-krb5-conf-changes.outputs.any_changed == 'true' || steps.remal-epam-krb5-conf-changes.outputs.any_deleted == 'true'}}
+      run: |
+        pack-and-push "remal-epam-krb5-conf" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
+
     - name: Check npp-compare changes
       id: npp-compare-changes
       uses: tj-actions/changed-files@v11.6
