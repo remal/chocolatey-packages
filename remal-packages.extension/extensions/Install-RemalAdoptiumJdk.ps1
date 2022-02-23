@@ -3,8 +3,8 @@ param(
   [parameter(Mandatory=$true, Position=1)][string] $version,
   [parameter(Mandatory=$true, Position=2)][string] $url64bit,
   [parameter(Mandatory=$true, Position=3)][string] $checksum64bit,
-  [parameter(Mandatory=$true, Position=4)][string] $url32bit,
-  [parameter(Mandatory=$true, Position=5)][string] $checksum32bit,
+  [parameter(Mandatory=$false, Position=4)][string] $url32bit,
+  [parameter(Mandatory=$false, Position=5)][string] $checksum32bit,
   [parameter(ValueFromRemainingArguments = $true)][Object[]] $ignoredArguments
 )
 
