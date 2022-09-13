@@ -1,2 +1,1 @@
-@echo %CMDCMDLINE% | @find /i "/c" > nul
-@if not ERRORLEVEL 1 @pause
+@for %%x in (%cmdcmdline%) do @if /i "%%~x"=="/c" @pause
