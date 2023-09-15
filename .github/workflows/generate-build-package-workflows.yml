@@ -33,4 +33,4 @@ jobs:
       uses: remal-github-actions/push-back@v1
       with:
         githubToken: ${{env.PUSH_BACK_TOKEN}}
-        message: '[push-back] Generated build package workflows'
+        message: 'Generated build package workflows'
