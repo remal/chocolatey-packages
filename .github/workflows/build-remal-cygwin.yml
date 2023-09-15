@@ -36,7 +36,7 @@ jobs:
 
     - name: Update version
       run: |
-        echo test
+        node update-package-version.js remal-cygwin
 
     - name: Pack only
       if: ${{
@@ -54,7 +54,7 @@ jobs:
     - name: Push back
       env:
         PUSH_BACK_TOKEN: ${{secrets.PUSH_BACK_TOKEN}}
-      if: ${{env.PUSH_BACK_TOKEN && github.event_name == 'push' && startsWith(github.ref, 'refs/heads/')}}
+      if: ${{env.PUSH_BACK_TOKEN && github.event_name == 'push' && github.ref == 'refs/heads/main'}}
       uses: remal-github-actions/push-back@v1
       with:
         githubToken: ${{env.PUSH_BACK_TOKEN}}
