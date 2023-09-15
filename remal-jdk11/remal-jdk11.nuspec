@@ -1,8 +1,8 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>remal-jdk11</id>
-    <version>11.0.13</version>
+    <version>1694810437.0.0</version>
     <title>Temurin JDK 11</title>
     <authors>Adoptium</authors>
     <description>Temurin JDK 11</description>
