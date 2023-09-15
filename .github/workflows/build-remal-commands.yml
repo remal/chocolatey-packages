@@ -1,0 +1,61 @@
+name: build-remal-commands
+
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - '.github/workflows/build-remal-commands.yml'
+    - 'remal-commands/**'
+  pull_request: { }
+  workflow_dispatch: { }
+
+defaults:
+  run:
+    shell: cmd
+
+jobs:
+  build:
+    if: ${{
+      (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/'))
+      || (github.event_name == 'push' && !startsWith(github.event.head_commit.message, '[push-back]'))
+      || github.event_name != 'push'
+      }}
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    - name: Update version
+      run: |
+        echo test
+
+    - name: Pack only
+      if: ${{
+        (github.event_name == 'push' && github.ref != 'refs/heads/main')
+        || github.event_name != 'push'
+        }}
+      run: |
+        pack "remal-commands"
+
+    - name: Pack and publish
+      if: ${{false && github.event_name == 'push' && github.ref == 'refs/heads/main'}}
+      run: |
+        pack-and-push "remal-commands" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
+
+    - name: Push back
+      env:
+        PUSH_BACK_TOKEN: ${{secrets.PUSH_BACK_TOKEN}}
+      if: ${{env.PUSH_BACK_TOKEN && github.event_name == 'push' && startsWith(github.ref, 'refs/heads/')}}
+      uses: remal-github-actions/push-back@v1
+      with:
+        githubToken: ${{env.PUSH_BACK_TOKEN}}
+        message: '[push-back] Push-back updated files during build'
