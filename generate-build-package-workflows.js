@@ -15,6 +15,7 @@ const template = fs.readFileSync('./.github/workflows/templates/build-package.ym
 const packageNames = fs.readdirSync('.')
     .filter(file => !file.startsWith('.'))
     .filter(file => fs.statSync(file).isDirectory())
+    .filter(packageName => fs.statSync(`${packageName}/${packageName}.nuspec`).isFile())
 
 packageNames.forEach(packageName => {
     const workflow = template.replaceAll('{package}', packageName)
