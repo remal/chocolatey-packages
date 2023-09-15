@@ -11,6 +11,7 @@ defaults:
 
 jobs:
   generate-build-package-workflows:
+    if: ${{false}}
     name: generate-build-package-workflows
     runs-on: ubuntu-latest
     timeout-minutes: 15
