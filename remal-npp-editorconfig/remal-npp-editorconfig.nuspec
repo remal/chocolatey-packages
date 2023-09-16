@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>npp-compare</id>
-    <version>2.0.1</version>
-    <title>Notepad++ Compare plugin</title>
-    <description>Notepad++ Compare plugin</description>
+    <id>remal-npp-editorconfig</id>
+    <version>1694909402.0.0</version>
+    <title>Notepad++ EditorConfig plugin</title>
+    <description>Notepad++ EditorConfig plugin</description>
     <authors>Semyon Levin</authors>
     <dependencies>
       <dependency id="notepadplusplus.install" version="8.1" />

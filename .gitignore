@@ -1,4 +1,8 @@
 /nuget.config
 
+*.bak
+*.tmp
+*.tmp.*
+
 # Mac
 .DS_Store

@@ -7,6 +7,10 @@ on:
   pull_request: { }
   workflow_dispatch: { }
 
+env:
+  CHANGED_PACKAGES_FILE: 'changed-packages.tmp.txt'
+  CHOCO_REMAL_PACKAGES_REPOSITORY: 'https://f.feedz.io/remal/chocolatey-packages/nuget'
+
 defaults:
   run:
     shell: cmd
@@ -25,42 +29,87 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 2
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
     - name: Get changed files
       id: get-changed-files
       uses: tj-actions/changed-files@v39
-    - run: |
-        echo "${{steps.get-changed-files.outputs.all_modified_files}}"
+      with:
+        json: true
+        escape_json: false
+        quotepath: false
+    - name: Get changed packages
+      id: get-changed-packages
+      if: ${{steps.get-changed-files.outputs.all_modified_files_count > 0}}
+      uses: actions/github-script@v6
+      env:
+        CHANGED_FILES_JSON: ${{steps.get-changed-files.outputs.all_modified_files}}
+      with:
+        script: |
+          const fs = require('fs')
+          const packageNames = fs.readdirSync('.')
+            .filter(file => !file.startsWith('.'))
+            .filter(file => fs.statSync(file).isDirectory())
+            .filter(packageName => fs.statSync(`${packageName}/${packageName}.nuspec`).isFile())
+          core.info(`packageNames: ${packageNames.join(' ')}`)
+          const changedFiles = JSON.parse(process.env.CHANGED_FILES_JSON)
+            .map(file => file.replaceAll('\\', '/'))
+          core.info(`changedFiles: ${changedFiles.join(' ')}`)
+          const changedPackages = packageNames
+            .filter(packageName => changedFiles.some(file => file.startsWith(`${packageName}/`)))
+          core.info(`changedPackages: ${changedPackages.join(' ')}`)
+          core.setOutput('count', changedPackages.length)
+          fs.writeFileSync('changed-packages.tmp.txt', changedPackages.join('\n'), 'utf8')
 
-    # Start packages:
 
-    - name: Update version
-      run: |
-        node update-package-version.js remal-jdk11-main
+    - name: Update versions
+      if: ${{steps.get-changed-packages.outputs.count > 0}}
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs')
+          const version = Math.floor(Date.now() / 1000)
+          const packageNames = fs.readFileSync('changed-packages.tmp.txt', 'utf8').split('\n')
+            .map(it => it.trim())
+            .filter(it => !!it.length)
+          packageNames.forEach(packageName => {
+            core.info(`Setting version of ${packageName} to ${version}`)
+            const packageNuspecFile = `${packageName}/${packageName}.nuspec`
+            let content = fs.readFileSync(packageNuspecFile, 'utf8').replace(/^\uFEFF/, '')
+            content = content.replace(/<version>[\s\S]*?<\/version>/, `<version>${version}.0.0</version>`)
+            fs.writeFileSync(packageNuspecFile, '\uFEFF' + content, 'utf8')
+          })
 
     - name: Pack only
       if: ${{
-        (github.event_name == 'push' && github.ref != 'refs/heads/main')
-        || github.event_name != 'push'
+        (steps.get-changed-packages.outputs.count > 0)
+        && (
+          (github.event_name == 'push' && github.ref != 'refs/heads/main')
+          || (github.event_name != 'push')
+        )
         }}
       run: |
-        pack "remal-jdk11-main"
+        build-changed "N"
+        if !ERRORLEVEL! NEQ 0 (
+          exit !ERRORLEVEL!
+        )
 
     - name: Pack and publish
-      if: ${{false && github.event_name == 'push' && github.ref == 'refs/heads/main'}}
+      if: ${{
+        (steps.get-changed-packages.outputs.count > 0)
+        && (
+          (github.event_name == 'push' && github.ref == 'refs/heads/main')
+        )
+        }}
       run: |
-        pack-and-push "remal-jdk11-main" "https://f.feedz.io/remal/chocolatey-packages/nuget" "${{secrets.FEEDZ_IO_TOKEN}}"
-
-    # End packages
+        build-changed "Y" "${{secrets.FEEDZ_IO_TOKEN}}"
+        if !ERRORLEVEL! NEQ 0 (
+          exit !ERRORLEVEL!
+        )
 
 
     - name: Push back
       env:
         PUSH_BACK_TOKEN: ${{secrets.PUSH_BACK_TOKEN}}
-      if: ${{false && env.PUSH_BACK_TOKEN && github.event_name == 'push' && github.ref == 'refs/heads/main'}}
+      if: ${{env.PUSH_BACK_TOKEN && github.event_name == 'push' && github.ref == 'refs/heads/main'}}
       uses: remal-github-actions/push-back@v1
       with:
         githubToken: ${{env.PUSH_BACK_TOKEN}}
