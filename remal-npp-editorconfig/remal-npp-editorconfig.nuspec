@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>remal-npp-editorconfig</id>
-    <version>1694909402.0.0</version>
+    <version>1694909866.0.0</version>
     <title>Notepad++ EditorConfig plugin</title>
     <description>Notepad++ EditorConfig plugin</description>
     <authors>Semyon Levin</authors>
