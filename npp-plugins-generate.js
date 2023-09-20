@@ -27,11 +27,10 @@ async function executeLogic() {
     //console.log('config', config)
 
     config.forEach((packageConfig, packageIndex) => {
-        if (packageIndex >= 1) console.log('')
-
+        if (packageIndex >= 1) { console.log('') }
         console.log(`Generating ${packageConfig.packageName} package`)
-        const packageDir = packageConfig.packageName
 
+        const packageDir = packageConfig.packageName
         if (fs.existsSync(packageDir)) {
             //console.log(`Removing ${packageDir}`)
             fs.rmSync(packageDir, { recursive: true, force: true })

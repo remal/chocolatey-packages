@@ -54,6 +54,20 @@ jobs:
           core.info(`changedFiles: ${changedFiles.join(' ')}`)
           const changedPackages = packageNames
             .filter(packageName => changedFiles.some(file => file.startsWith(`${packageName}/`)))
+          if (changedFiles.some(file => file.includes('jdk-generate'))) {
+            const changedJdkPackages = []
+            for (let jdkVer = 8; jdkVer <= 19; ++jdkVer) {
+              changedJdkPackages.push(`remal-jdk${jdkVer}`)
+              changedJdkPackages.push(`remal-jdk${jdkVer}-main`)
+            }
+            changedJdkPackages.forEach(packageName => {
+                if (!changedPackages.includes(packageName)) {
+                  changedPackages.push(packageName)
+                }
+              })
+            core.info(`changedJdkPackages: ${changedJdkPackages.join(' ')}`)
+            core.setOutput('jdk', 'true')
+          }
           if (changedFiles.some(file => file.includes('npp-plugins-generate'))) {
             const changedNppPluginPackages = require('./npp-plugins-generate-config')
               .map(plugin => plugin.packageName)
@@ -71,10 +85,17 @@ jobs:
 
 
     - name: Setup Node.js
-      if: ${{steps.get-changed-packages.outputs.nppPlugins == 'true'}}
+      if: ${{
+        steps.get-changed-packages.outputs.jdk == 'true'
+        || steps.get-changed-packages.outputs.nppPlugins == 'true'
+        }}
       uses: actions/setup-node@v3
       with:
         node-version: 20
+    - name: Generate JDK packages
+      if: ${{steps.get-changed-packages.outputs.jdk == 'true'}}
+      run: |
+        node jdk-generate
     - name: Generate Notepad++ plugin packages
       if: ${{steps.get-changed-packages.outputs.nppPlugins == 'true'}}
       run: |

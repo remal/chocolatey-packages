@@ -1,9 +1,8 @@
 ﻿$jdkArgs = @{
-  version = '8'
-  url64bit = 'https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u312-b07/OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.msi'
-  checksum64bit = '5544EBCB03206F3C3F5F19F6DA03003A154CB2B489A06D88A052792F72B76C21'
-  url32bit = 'https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u312-b07/OpenJDK8U-jdk_x86-32_windows_hotspot_8u312b07.msi'
-  checksum32bit = 'BD19EC2D8194477FD5B473E4DC9244E800E7CBBEC03883481B0DB49E1EAC520B'
+    version = '8'
+    url64bit = 'https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u382-b05/OpenJDK8U-jdk_x64_windows_hotspot_8u382b05.msi'
+    checksum64bit = 'da10c23aa318764adc8361df0e0363fa50f885abe97b229fb0e4d4fe8c9f9679'
+    url32bit = 'https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u382-b05/OpenJDK8U-jdk_x86-32_windows_hotspot_8u382b05.msi'
+    checksum32bit = '64781e479765309fb4453510c9610ae845aa816889035d344c3fdb460ff74814'
 }
-
 Install-RemalAdoptiumJdk @jdkArgs

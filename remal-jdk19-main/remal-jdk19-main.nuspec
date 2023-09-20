@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>remal-jdk19-main</id>
+    <!-- JDK: 19.0.2+7 -->
+    <version>1694810759.0.0</version>
+    <title>Temurin JDK 19 as a main JDK on the machine</title>
+    <description>Temurin JDK 19 as a main JDK on the machine</description>
+    <authors>Semyon Levin</authors>
+    <dependencies>
+      <dependency id="remal-packages.extension" version="0.3" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
