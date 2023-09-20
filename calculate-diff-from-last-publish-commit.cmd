@@ -25,6 +25,7 @@ for /F "delims=" %%h in ('git log "--format=%%H" --reverse !LAST_PUBLISHED_COMMI
     )
 )
 
+set CHANGED_FILES=!CHANGED_FILES:~1!
 echo Changed files: !CHANGED_FILES!
 
 if "!GITHUB_OUTPUT!" neq "" (
