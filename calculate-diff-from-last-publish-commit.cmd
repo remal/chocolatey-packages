@@ -19,7 +19,10 @@ for /F "delims=" %%h in ('git log "--format=%%H" --reverse !LAST_PUBLISHED_COMMI
             set CHANGED_FILE=%%f
             echo "!CHANGED_FILES!" | findstr /C:":!CHANGED_FILE!" 1>nul
             if errorlevel 1 (
+                echo   !CHANGED_FILE!
                 set CHANGED_FILES=!CHANGED_FILES!:!CHANGED_FILE!
+            ) else (
+                echo   !CHANGED_FILE! - already processed
             )
         )
     )
