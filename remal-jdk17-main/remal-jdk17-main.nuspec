@@ -7,7 +7,7 @@
     <authors>Semyon Levin</authors>
     <description>Temurin JDK 17 as a main JDK on the machine</description>
     <dependencies>
-      <dependency id="remal-jdk17" version="1695176066.0.0" />
+      <dependency id="remal-jdk17" version="1695180807.0.0" />
       <dependency id="remal-packages.extension" version="1695169326.0.0" />
     </dependencies>
   </metadata>
