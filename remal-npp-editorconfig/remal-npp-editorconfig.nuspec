@@ -2,13 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>remal-npp-editorconfig</id>
-    <version></version>
+    <version>1695170439.0.0</version>
     <title>Notepad++ NppEditorConfig plugin</title>
     <description>Notepad++ NppEditorConfig plugin</description>
     <authors>Semyon Levin</authors>
     <dependencies>
       <dependency id="notepadplusplus.install" version="8.1" />
-      <dependency id="remal-packages.extension" version="0.2" />
+      <dependency id="remal-packages.extension" version="1695169326.0.0" />
     </dependencies>
   </metadata>
   <files>
