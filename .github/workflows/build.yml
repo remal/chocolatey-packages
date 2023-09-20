@@ -52,7 +52,6 @@ jobs:
             .filter(file => fs.statSync(file).isDirectory())
             .filter(packageName => fs.statSync(`${packageName}/${packageName}.nuspec`).isFile())
           core.info(`packageNames: ${packageNames.join(' ')}`)
-          core.info(`CHANGED_FILES: ${process.env.CHANGED_FILES}`)
           const changedFiles = process.env.CHANGED_FILES.split(':').map(it => it.trim()).filter(it => !!it.length)
           core.info(`changedFiles: ${changedFiles.join(' ')}`)
           const changedPackages = packageNames
@@ -86,6 +85,7 @@ jobs:
         script: |
           const fs = require('fs')
           const changedPackages = []
+          const changedFiles = process.env.CHANGED_FILES.split(':').map(it => it.trim()).filter(it => !!it.length)
           if (changedFiles.some(file => file.includes('jdk-generate'))) {
             const latestJdkVersion = process.env.LATEST_JDK_VERSION.split(/\./)[0] | 0
             for (let jdkVer = 8; jdkVer <= latestJdkVersion; ++jdkVer) {
