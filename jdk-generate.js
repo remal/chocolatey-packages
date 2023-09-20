@@ -25,6 +25,7 @@ async function executeLogic() {
         }
     }
 
+
     const majorVersions = Object.keys(allVersions)
     const installers64 = []
     const installers32 = []
