@@ -35,14 +35,14 @@
     {
       fileMatch: ['^\\.github/workflows/.+\\.yml$'],
       matchStrings: ["LATEST_JDK_VERSION:\\s*(?<currentValue>\\d+)"],
-      packageNameTemplate: 'java-jdk',
+      depNameTemplate: 'java-jdk',
       versioningTemplate: "docker",
       datasourceTemplate: "java-version",
     },
     {
       fileMatch: ['\\.nuspec$'],
       matchStrings: ["<!--\\s*JDK:\\s*(?<currentValue>[^#]+?)\\s*-->"],
-      packageNameTemplate: 'java-jdk',
+      depNameTemplate: 'java-jdk',
       versioningTemplate: "semver",
       datasourceTemplate: "java-version",
     },
