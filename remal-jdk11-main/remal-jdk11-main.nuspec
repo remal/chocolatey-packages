@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>remal-jdk11-main</id>
-    <version>1695176066.0.0</version>
+    <version>1695179991.0.0</version>
     <title>Temurin JDK 11 as a main JDK on the machine</title>
     <authors>Semyon Levin</authors>
     <description>Temurin JDK 11 as a main JDK on the machine</description>
