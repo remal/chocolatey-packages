@@ -2,12 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>remal-jdk17-main</id>
-    <version>1695186579.0.0</version>
+    <!-- JDK: 17.0.8+101 -->
+    <version>1695187780.0.0</version>
     <title>Temurin JDK 17 as a main JDK on the machine</title>
-    <authors>Semyon Levin</authors>
     <description>Temurin JDK 17 as a main JDK on the machine</description>
+    <authors>Semyon Levin</authors>
     <dependencies>
-      <dependency id="remal-jdk17" version="1695180807.0.0" />
       <dependency id="remal-packages.extension" version="1695169326.0.0" />
     </dependencies>
   </metadata>

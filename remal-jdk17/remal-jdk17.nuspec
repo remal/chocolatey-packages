@@ -2,10 +2,11 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>remal-jdk17</id>
-    <version>1695176066.0.0</version>
+    <!-- JDK: 17.0.8+101 -->
+    <version>1695187780.0.0</version>
     <title>Temurin JDK 17</title>
-    <authors>Adoptium</authors>
     <description>Temurin JDK 17</description>
+    <authors>Adoptium</authors>
     <dependencies>
       <dependency id="remal-packages.extension" version="1695169326.0.0" />
     </dependencies>

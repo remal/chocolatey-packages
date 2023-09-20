@@ -3,7 +3,7 @@
   <metadata>
     <id>remal-jdk16-main</id>
     <!-- JDK: 16.0.2+7 -->
-    <version>1694810759.0.0</version>
+    <version>1695187780.0.0</version>
     <title>Temurin JDK 16 as a main JDK on the machine</title>
     <description>Temurin JDK 16 as a main JDK on the machine</description>
     <authors>Semyon Levin</authors>
