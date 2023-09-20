@@ -60,8 +60,8 @@ if "%CI%" == "true" (
     choco feature enable --name removePackageInformationOnUninstall || exit /B !ERRORLEVEL!
     choco feature disable --name stopOnFirstPackageFailure || exit /B !ERRORLEVEL!
     choco feature enable --name useRememberedArgumentsForUpgrades || exit /B !ERRORLEVEL!
-    choco feature disable --name showDownloadProgress || exit /B !ERRORLEVEL!
-    choco feature disable --name usePackageRepositoryOptimizations || exit /B !ERRORLEVEL!
+    choco feature disable --name showDownloadProgress
+    choco feature disable --name usePackageRepositoryOptimizations
 ) else (
     set /P AREYOUSURE="Executing Chocolatey tests on local machine. Are you sure (Y/[N])?"
     if /I "!AREYOUSURE!" NEQ "Y" exit /B 0

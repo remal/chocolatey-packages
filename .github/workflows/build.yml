@@ -59,13 +59,15 @@ jobs:
           const changedPackages = packageNames
             .filter(packageName => changedFiles.some(file => file.startsWith(`${packageName}/`)))
           if (changedFiles.some(file => file.includes('npp-plugins-generate'))) {
-            require('./npp-plugins-generate-config')
+            const changedNppPluginPackages = require('./npp-plugins-generate-config')
               .map(plugin => plugin.packageName)
-              .forEach(packageName => {
+            changedNppPluginPackages.forEach(packageName => {
                 if (!changedPackages.includes(packageName)) {
                   changedPackages.push(packageName)
                 }
               })
+            core.info(`changedNppPluginPackages: ${changedNppPluginPackages.join(' ')}`)
+            core.setOutput('nppPlugins', 'true')
           }
           core.info(`changedPackages: ${changedPackages.join(' ')}`)
           core.setOutput('count', changedPackages.length)
@@ -73,6 +75,7 @@ jobs:
 
 
     - name: Generate Notepad++ plugin packages
+      if: ${{steps.get-changed-packages.outputs.nppPlugins == 'true'}}
       run: |
         node npp-plugins-generate
 
