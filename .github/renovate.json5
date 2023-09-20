@@ -38,7 +38,7 @@
     },
     {
       fileMatch: ['^\\.github/workflows/.+\\.yml$'],
-      matchStrings: ["LATEST_JDK_VERSION:\\s*(?<currentValue>\\d+)"],
+      matchStrings: ["LATEST_JDK_VERSION:\\s+(?<currentValue>\\d+)"],
       depNameTemplate: 'java-jdk',
       datasourceTemplate: "java-version",
     },

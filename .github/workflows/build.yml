@@ -10,7 +10,7 @@ on:
 env:
   CHANGED_PACKAGES_FILE: 'changed-packages.tmp.txt'
   CHOCO_REMAL_PACKAGES_REPOSITORY: 'https://f.feedz.io/remal/chocolatey-packages/nuget'
-  LATEST_JDK_VERSION: 19
+  LATEST_JDK_VERSION: 19.0.0
 
 defaults:
   run:
@@ -57,7 +57,8 @@ jobs:
             .filter(packageName => changedFiles.some(file => file.startsWith(`${packageName}/`)))
           if (changedFiles.some(file => file.includes('jdk-generate'))) {
             const changedJdkPackages = []
-            for (let jdkVer = 8; jdkVer <= ${{env.LATEST_JDK_VERSION}}; ++jdkVer) {
+            const latestJdkVersion = '${{env.LATEST_JDK_VERSION}}'.split(/\./)[0] | 0
+            for (let jdkVer = 8; jdkVer <= latestJdkVersion; ++jdkVer) {
               changedJdkPackages.push(`remal-jdk${jdkVer}`)
               changedJdkPackages.push(`remal-jdk${jdkVer}-main`)
             }
