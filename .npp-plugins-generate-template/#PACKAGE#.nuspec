@@ -2,6 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>#PACKAGE#</id>
+    <!-- NPP Plugin: #ID#:#VERSION# -->
     <version></version>
     <title>Notepad++ #ID# plugin</title>
     <description>Notepad++ #ID# plugin</description>

@@ -22,5 +22,19 @@
       matchStrings: ["<dependency\\s+id=\"(?<depName>[^\"]+)\"\\s+version=\"(?<currentValue>[^\"]+)\"\\s*/>"],
       datasourceTemplate: "nuget",
     },
+    {
+      fileMatch: ['\\.nuspec$'],
+      matchStrings: ["<!--\\s*NPP Plugin:\\s*(?<depName>[^:#>]+):(?<currentValue>[^#]+?)\\s*-->"],
+      versioningTemplate: "semver-coerced",
+      datasourceTemplate: "custom.npp-plugin",
+    },
   ],
+
+  customDatasources: {
+    'npp-plugin': {
+      defaultRegistryUrlTemplate: 'https://github.com/notepad-plus-plus/nppPluginList/raw/master/src/pl.x64.json',
+      format: 'json',
+      transformTemplates: ["{'releases':[`npp-plugins`.$[`folder-name` = '{{packageName}}'].version]}"],
+    },
+  },
 }
