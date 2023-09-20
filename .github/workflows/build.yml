@@ -115,7 +115,7 @@ jobs:
     - name: Setup Node.js
       if: ${{
         steps.get-changed-jdk-packages.outputs.count > 0
-        steps.get-changed-npp-plugin-packages.outputs.count > 0
+        || steps.get-changed-npp-plugin-packages.outputs.count > 0
         }}
       uses: actions/setup-node@v3
       with:
