@@ -6,18 +6,28 @@
     enabled: false, // This is in beta for now, so let's use Dependabot to update Git submodules
   },
 
-  nuget: {
+  packageRules: [
+    {
+      matchDatasources: ["nuget"],
+      registryUrls: [
+        "https://community.chocolatey.org/api/v2/",
+        "https://f.feedz.io/remal/chocolatey-packages/nuget",
+      ]
+    }
+  ],
+
+  /*nuget: {
     registryUrls: [
       "https://community.chocolatey.org/api/v2/",
       "https://f.feedz.io/remal/chocolatey-packages/nuget",
     ],
-  },
+  },*/
 
   regexManagers: [
     {
       fileMatch: ['\\.nuspec$'],
       matchStrings: ["<dependency\\s+id=\"(?<depName>[^\"]+)\"\\s+version=\"(?<currentValue>[^\"]+)\"\\s*/>"],
-      datasource: "nuget",
+      datasourceTemplate: "nuget",
     },
   ],
 }
