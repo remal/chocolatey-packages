@@ -16,13 +16,6 @@
     }
   ],
 
-  /*nuget: {
-    registryUrls: [
-      "https://community.chocolatey.org/api/v2/",
-      "https://f.feedz.io/remal/chocolatey-packages/nuget",
-    ],
-  },*/
-
   regexManagers: [
     {
       fileMatch: ['\\.nuspec$'],

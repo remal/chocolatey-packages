@@ -9,7 +9,7 @@ pull_request_rules:
   conditions:
   - '#approved-reviews-by>=1'
   - '#commits-behind=0'
-  - -files~=^(\.github/)?renovate\.json5?)$
+  - -files~=^(\.github/)?renovate\.json5?$
   - -conflict
   - -closed
   - -merged
@@ -30,7 +30,7 @@ pull_request_rules:
   - '#approved-reviews-by=0'
   - author~=^(dependabot(-preview)?|renovate)\[bot\]$
   - label!=sync-with-template
-  - -files~=^(\.github/)?renovate\.json5?)$
+  - -files~=^(\.github/)?renovate\.json5?$
   - 'check-neutral!=renovate/stability-days'
   - 'check-pending!=renovate/stability-days'
   - 'check-failure!=renovate/stability-days'
