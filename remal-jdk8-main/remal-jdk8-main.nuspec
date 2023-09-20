@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>remal-jdk8-main</id>
-    <version>1695176066.0.0</version>
+    <version>1695186068.0.0</version>
     <title>Temurin JDK 8 as a main JDK on the machine</title>
     <authors>Semyon Levin</authors>
     <description>Temurin JDK 8 as a main JDK on the machine</description>
