@@ -7,7 +7,7 @@
     <authors>Adoptium</authors>
     <description>Temurin JDK 11</description>
     <dependencies>
-      <dependency id="remal-packages.extension" version="0.3" />
+      <dependency id="remal-packages.extension" version="1695169326.0.0" />
     </dependencies>
   </metadata>
   <files>
