@@ -8,20 +8,22 @@ if not exist changed-packages.tmp.txt (
 
 set SUMMARY_ERRORLEVEL=0
 for /F "tokens=*" %%P in (changed-packages.tmp.txt) do (
-    echo ::group::%%P
+    if exist "%%P" (
+        echo ::group::%%P
 
-    call "%~dp0\build" "%%P" %*
+        call "%~dp0\build" "%%P" %*
 
-    set LAST_ERRORLEVEL=!ERRORLEVEL!
-    if !LAST_ERRORLEVEL! NEQ 0 (
-        echo ::error::Command execution failed: build 1>&2
-        set SUMMARY_ERRORLEVEL=!LAST_ERRORLEVEL!
-    )
+        set LAST_ERRORLEVEL=!ERRORLEVEL!
+        if !LAST_ERRORLEVEL! NEQ 0 (
+            echo ::error::Command execution failed: build 1>&2
+            set SUMMARY_ERRORLEVEL=!LAST_ERRORLEVEL!
+        )
 
-    echo ::endgroup::
+        echo ::endgroup::
 
-    if !LAST_ERRORLEVEL! NEQ 0 (
-        echo ::error::Buiding %%P failed 1>&2
+        if !LAST_ERRORLEVEL! NEQ 0 (
+            echo ::error::Buiding %%P failed 1>&2
+        )
     )
 )
 
