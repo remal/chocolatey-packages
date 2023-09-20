@@ -8,7 +8,7 @@
     <description>Temurin JDK 8 as a main JDK on the machine</description>
     <dependencies>
       <dependency id="remal-jdk8" version="8.0.302" />
-      <dependency id="remal-packages.extension" version="0.3.0" />
+      <dependency id="remal-packages.extension" version="1695169326.0.0" />
     </dependencies>
   </metadata>
   <files>
