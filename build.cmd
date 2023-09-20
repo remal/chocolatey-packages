@@ -105,7 +105,6 @@ if /I "!PUBLISH!" NEQ "Y" (
     echo Skip pulishing !PACKAGE!
 
 ) else (
-
     set REPOSITORY_TOKEN=%~3
     if "!REPOSITORY_TOKEN!" == "" (
         echo ::error::Repository token is not set or empty 1>&2
@@ -122,6 +121,8 @@ if /I "!PUBLISH!" NEQ "Y" (
         exit /B !ERRORLEVEL!
     )
     popd
+
+    git rev-parse HEAD > .last-publish.commit
 )
 
 echo.

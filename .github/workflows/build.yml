@@ -28,20 +28,20 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 2
+
+
+    # Create a list of changed packages:
+    - name: Process changed-packages.tmp.txt file
+      run: |
+        type NUL > changed-packages.tmp.txt
+
     - name: Get changed files
       id: get-changed-files
-      uses: tj-actions/changed-files@v39
-      with:
-        json: true
-        escape_json: false
-        quotepath: false
+      run: |
+        calculate-diff-from-last-publish-commit
+
     - name: Get changed packages
-      id: get-changed-packages
       uses: actions/github-script@v6
-      env:
-        CHANGED_FILES_JSON: ${{steps.get-changed-files.outputs.all_modified_files}}
       with:
         script: |
           const fs = require('fs')
@@ -50,60 +50,87 @@ jobs:
             .filter(file => fs.statSync(file).isDirectory())
             .filter(packageName => fs.statSync(`${packageName}/${packageName}.nuspec`).isFile())
           core.info(`packageNames: ${packageNames.join(' ')}`)
-          const changedFiles = JSON.parse(process.env.CHANGED_FILES_JSON)
-            .map(file => file.replaceAll('\\', '/'))
+          const changedFiles = process.env.CHANGED_FILES.split(':').map(it => it.trim()).filter(it => !!it.length)
           core.info(`changedFiles: ${changedFiles.join(' ')}`)
           const changedPackages = packageNames
             .filter(packageName => changedFiles.some(file => file.startsWith(`${packageName}/`)))
+          core.info(`changedPackages: ${changedPackages.join(' ')}`)
+          fs.appendFileSync('changed-packages.tmp.txt', '\n\n' + changedPackages.join('\n'), 'utf8')
+
+    - name: Collect changed JDK packages
+      id: get-changed-jdk-packages
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs')
+          const changedPackages = []
+          const changedFiles = process.env.CHANGED_FILES.split(':').map(it => it.trim()).filter(it => !!it.length)
           if (changedFiles.some(file => file.includes('jdk-generate'))) {
-            const changedJdkPackages = []
-            const latestJdkVersion = '${{env.LATEST_JDK_VERSION}}'.split(/\./)[0] | 0
+            const latestJdkVersion = process.env.LATEST_JDK_VERSION.split(/\./)[0] | 0
             for (let jdkVer = 8; jdkVer <= latestJdkVersion; ++jdkVer) {
-              changedJdkPackages.push(`remal-jdk${jdkVer}`)
-              changedJdkPackages.push(`remal-jdk${jdkVer}-main`)
+              changedPackages.push(`remal-jdk${jdkVer}`)
+              changedPackages.push(`remal-jdk${jdkVer}-main`)
             }
-            changedJdkPackages.forEach(packageName => {
-                if (!changedPackages.includes(packageName)) {
-                  changedPackages.push(packageName)
-                }
-              })
-            core.info(`changedJdkPackages: ${changedJdkPackages.join(' ')}`)
-            core.setOutput('jdk', 'true')
           }
-          if (changedFiles.some(file => file.includes('npp-plugins-generate'))) {
-            const changedNppPluginPackages = require('./npp-plugins-generate-config')
-              .map(plugin => plugin.packageName)
-            changedNppPluginPackages.forEach(packageName => {
-                if (!changedPackages.includes(packageName)) {
-                  changedPackages.push(packageName)
-                }
-              })
-            core.info(`changedNppPluginPackages: ${changedNppPluginPackages.join(' ')}`)
-            core.setOutput('nppPlugins', 'true')
+          core.info(`changedPackages: ${changedPackages.join(' ')}`)
+          core.setOutput('count', changedPackages.length)
+          fs.appendFileSync('changed-packages.tmp.txt', '\n\n' + changedPackages.join('\n'), 'utf8')
+
+    - name: Collect changed NPP Plugin packages
+      id: get-changed-npp-plugin-packages
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs')
+          const changedPackages = []
+          if (changedFiles.some(file => file.includes('jdk-generate'))) {
+            const latestJdkVersion = process.env.LATEST_JDK_VERSION.split(/\./)[0] | 0
+            for (let jdkVer = 8; jdkVer <= latestJdkVersion; ++jdkVer) {
+              changedPackages.push(`remal-jdk${jdkVer}`)
+              changedPackages.push(`remal-jdk${jdkVer}-main`)
+            }
           }
+          core.info(`changedPackages: ${changedPackages.join(' ')}`)
+          core.setOutput('count', changedPackages.length)
+          fs.appendFileSync('changed-packages.tmp.txt', '\n\n' + changedPackages.join('\n'), 'utf8')
+
+    - name: Process changed-packages.tmp.txt file
+      id: get-changed-packages
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs')
+          const changedPackages = fs.readFileSync('changed-packages.tmp.txt', 'utf8').split('\n')
+            .map(it => it.trim())
+            .filter(it => !!it.length)
+            .filter((value, index, array) => array.indexOf(value) === index)
+            .sort()
+            .filter(packageName => fs.existsSync(`${packageName}/${packageName}.nuspec`))
           core.info(`changedPackages: ${changedPackages.join(' ')}`)
           core.setOutput('count', changedPackages.length)
           fs.writeFileSync('changed-packages.tmp.txt', changedPackages.join('\n'), 'utf8')
 
 
+    # Generate packages:
     - name: Setup Node.js
       if: ${{
-        steps.get-changed-packages.outputs.jdk == 'true'
-        || steps.get-changed-packages.outputs.nppPlugins == 'true'
+        steps.get-changed-jdk-packages.outputs.count > 0
+        steps.get-changed-npp-plugin-packages.outputs.count > 0
         }}
       uses: actions/setup-node@v3
       with:
         node-version: 20
     - name: Generate JDK packages
-      if: ${{steps.get-changed-packages.outputs.jdk == 'true'}}
+      if: ${{steps.get-changed-jdk-packages.outputs.count > 0}}
       run: |
         node jdk-generate
     - name: Generate Notepad++ plugin packages
-      if: ${{steps.get-changed-packages.outputs.nppPlugins == 'true'}}
+      if: ${{steps.get-changed-npp-plugin-packages.outputs.count > 0}}
       run: |
         node npp-plugins-generate
 
 
+    # Build packages:
     - name: Update versions
       if: ${{steps.get-changed-packages.outputs.count > 0}}
       uses: actions/github-script@v6
@@ -115,9 +142,8 @@ jobs:
             .map(it => it.trim())
             .filter(it => !!it.length)
           packageNames.forEach(packageName => {
-            const packageNuspecFile = `${packageName}/${packageName}.nuspec`
-            if (!fs.existsSync(packageNuspecFile)) { return }
             core.info(`Setting version of ${packageName} to ${version}`)
+            const packageNuspecFile = `${packageName}/${packageName}.nuspec`
             let content = fs.readFileSync(packageNuspecFile, 'utf8').replace(/^\uFEFF/, '')
             content = content.replace(/<version>[\s\S]*?<\/version>/, `<version>${version}.0.0</version>`)
             fs.writeFileSync(packageNuspecFile, '\uFEFF' + content, 'utf8')
@@ -150,6 +176,7 @@ jobs:
         )
 
 
+    # Push back:
     - name: Push back
       env:
         PUSH_BACK_TOKEN: ${{secrets.PUSH_BACK_TOKEN}}
