@@ -86,12 +86,10 @@ jobs:
           const fs = require('fs')
           const changedPackages = []
           const changedFiles = process.env.CHANGED_FILES.split(':').map(it => it.trim()).filter(it => !!it.length)
-          if (changedFiles.some(file => file.includes('jdk-generate'))) {
-            const latestJdkVersion = process.env.LATEST_JDK_VERSION.split(/\./)[0] | 0
-            for (let jdkVer = 8; jdkVer <= latestJdkVersion; ++jdkVer) {
-              changedPackages.push(`remal-jdk${jdkVer}`)
-              changedPackages.push(`remal-jdk${jdkVer}-main`)
-            }
+          if (changedFiles.some(file => file.includes('npp-plugins-generate'))) {
+            require('./npp-plugins-generate-config')
+              .map(plugin => plugin.packageName)
+              .forEach(packageName => changedPackages.push(packageName))
           }
           core.info(`changedPackages: ${changedPackages.join(' ')}`)
           core.setOutput('count', changedPackages.length)
@@ -107,7 +105,6 @@ jobs:
             .map(it => it.trim())
             .filter(it => !!it.length)
             .filter((value, index, array) => array.indexOf(value) === index)
-            .sort()
             .filter(packageName => fs.existsSync(`${packageName}/${packageName}.nuspec`))
           core.info(`changedPackages: ${changedPackages.join(' ')}`)
           core.setOutput('count', changedPackages.length)
