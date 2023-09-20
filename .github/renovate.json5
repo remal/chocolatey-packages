@@ -17,7 +17,7 @@
     {
       fileMatch: ['\\.nuspec$'],
       matchStrings: ["<dependency\\s+id=\"(?<depName>[^\"]+)\"\\s+version=\"(?<currentValue>[^\"]+)\"\\s*/>"],
-      datasourceTemplate: "nuget",
+      datasource: "nuget",
     },
   ],
 }

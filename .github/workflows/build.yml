@@ -82,6 +82,7 @@ jobs:
 
 
     - name: Update versions
+      if: ${{steps.get-changed-packages.outputs.count > 0}}
       uses: actions/github-script@v6
       with:
         script: |
@@ -100,8 +101,11 @@ jobs:
 
     - name: Pack only
       if: ${{
-        (github.event_name == 'push' && github.ref != 'refs/heads/main')
-        || (github.event_name != 'push')
+        steps.get-changed-packages.outputs.count > 0
+        && (
+          (github.event_name == 'push' && github.ref != 'refs/heads/main')
+          || (github.event_name != 'push')
+        )
         }}
       run: |
         build-changed "N"
@@ -111,7 +115,9 @@ jobs:
 
     - name: Pack and publish
       if: ${{
-        (github.event_name == 'push' && github.ref == 'refs/heads/main')
+        steps.get-changed-packages.outputs.count > 0
+        && github.event_name == 'push'
+        && github.ref == 'refs/heads/main'
         }}
       run: |
         build-changed "Y" "${{secrets.FEEDZ_IO_TOKEN}}"
