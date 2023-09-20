@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>remal-cygwin</id>
-    <version>1695172575.0.0</version>
+    <version>1695173612.0.0</version>
     <title>Cygwin with consigured PATH</title>
     <description>Cygwin with consigured PATH</description>
     <authors>Semyon Levin</authors>
