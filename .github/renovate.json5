@@ -12,8 +12,18 @@
       registryUrls: [
         "https://community.chocolatey.org/api/v2/",
         "https://f.feedz.io/remal/chocolatey-packages/nuget",
-      ]
-    }
+      ],
+    },
+    {
+      matchDatasources: ["java-version"],
+      major: { enabled: false },
+    },
+    {
+      matchDatasources: ["java-version"],
+      matchFileNames: [".github/workflows/**/*.yml"],
+      allowedVersions: "/^\\d+$/",
+      major: { enabled: true },
+    },
   ],
 
   regexManagers: [
@@ -21,6 +31,20 @@
       fileMatch: ['\\.nuspec$'],
       matchStrings: ["<dependency\\s+id=\"(?<depName>[^\"]+)\"\\s+version=\"(?<currentValue>[^\"]+)\"\\s*/>"],
       datasourceTemplate: "nuget",
+    },
+    {
+      fileMatch: ['^\\.github/workflows/.+\\.yml$'],
+      matchStrings: ["LATEST_JDK_VERSION:\\s*(?<currentValue>\\d+)"],
+      packageNameTemplate: 'java-jdk',
+      versioningTemplate: "docker",
+      datasourceTemplate: "java-version",
+    },
+    {
+      fileMatch: ['\\.nuspec$'],
+      matchStrings: ["<!--\\s*JDK:\\s*(?<currentValue>[^#]+?)\\s*-->"],
+      packageNameTemplate: 'java-jdk',
+      versioningTemplate: "semver",
+      datasourceTemplate: "java-version",
     },
     {
       fileMatch: ['\\.nuspec$'],
