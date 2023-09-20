@@ -113,10 +113,9 @@ jobs:
           const packageNames = fs.readFileSync('changed-packages.tmp.txt', 'utf8').split('\n')
             .map(it => it.trim())
             .filter(it => !!it.length)
-            .filter(it => fs.statSync(it).isDirectory())
           packageNames.forEach(packageName => {
             const packageNuspecFile = `${packageName}/${packageName}.nuspec`
-            if (!fs.statSync(packageNuspecFile).isFile()) { return }
+            if (!fs.existsSync(packageNuspecFile)) { return }
             core.info(`Setting version of ${packageName} to ${version}`)
             let content = fs.readFileSync(packageNuspecFile, 'utf8').replace(/^\uFEFF/, '')
             content = content.replace(/<version>[\s\S]*?<\/version>/, `<version>${version}.0.0</version>`)

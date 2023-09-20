@@ -54,7 +54,6 @@ async function executeLogic() {
         }
     }
 
-
     Object.keys(allVersions).forEach((majorVersion, majorVersionIndex) => {
         const fullVersion = allVersions[majorVersion][0]
 
