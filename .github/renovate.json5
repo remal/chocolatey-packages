@@ -15,6 +15,10 @@
       ],
     },
     {
+      matchPackagePatterns: ["^remal-"],
+      separateMultipleMajor: false,
+    },
+    {
       matchDatasources: ["java-version"],
       major: { enabled: false },
     },
@@ -36,14 +40,14 @@
       fileMatch: ['^\\.github/workflows/.+\\.yml$'],
       matchStrings: ["LATEST_JDK_VERSION:\\s*(?<currentValue>\\d+)"],
       depNameTemplate: 'java-jdk',
-      versioningTemplate: "docker",
+      versioningTemplate: "semver-coerced",
       datasourceTemplate: "java-version",
     },
     {
       fileMatch: ['\\.nuspec$'],
       matchStrings: ["<!--\\s*JDK:\\s*(?<currentValue>[^#]+?)\\s*-->"],
       depNameTemplate: 'java-jdk',
-      versioningTemplate: "semver",
+      versioningTemplate: "semver-coerced",
       datasourceTemplate: "java-version",
     },
     {
