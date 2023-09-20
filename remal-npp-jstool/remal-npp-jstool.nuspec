@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>remal-npp-jstool</id>
-    <version></version>
+    <version>1695169326.0.0</version>
     <title>Notepad++ JSMinNPP plugin</title>
     <description>Notepad++ JSMinNPP plugin</description>
     <authors>Semyon Levin</authors>
