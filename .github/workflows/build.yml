@@ -10,6 +10,7 @@ on:
 env:
   CHANGED_PACKAGES_FILE: 'changed-packages.tmp.txt'
   CHOCO_REMAL_PACKAGES_REPOSITORY: 'https://f.feedz.io/remal/chocolatey-packages/nuget'
+  LATEST_JDK_VERSION: 19
 
 defaults:
   run:
@@ -56,7 +57,7 @@ jobs:
             .filter(packageName => changedFiles.some(file => file.startsWith(`${packageName}/`)))
           if (changedFiles.some(file => file.includes('jdk-generate'))) {
             const changedJdkPackages = []
-            for (let jdkVer = 8; jdkVer <= 19; ++jdkVer) {
+            for (let jdkVer = 8; jdkVer <= ${{env.LATEST_JDK_VERSION}}; ++jdkVer) {
               changedJdkPackages.push(`remal-jdk${jdkVer}`)
               changedJdkPackages.push(`remal-jdk${jdkVer}-main`)
             }
@@ -113,8 +114,9 @@ jobs:
             .map(it => it.trim())
             .filter(it => !!it.length)
           packageNames.forEach(packageName => {
-            core.info(`Setting version of ${packageName} to ${version}`)
             const packageNuspecFile = `${packageName}/${packageName}.nuspec`
+            if (!fs.statSync(packageNuspecFile).isFile()) { return }
+            core.info(`Setting version of ${packageName} to ${version}`)
             let content = fs.readFileSync(packageNuspecFile, 'utf8').replace(/^\uFEFF/, '')
             content = content.replace(/<version>[\s\S]*?<\/version>/, `<version>${version}.0.0</version>`)
             fs.writeFileSync(packageNuspecFile, '\uFEFF' + content, 'utf8')
