@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>remal-npp-hex-editor</id>
-    <version>1695169326.0.0</version>
+    <version></version>
     <title>Notepad++ HexEditor plugin</title>
     <description>Notepad++ HexEditor plugin</description>
     <authors>Semyon Levin</authors>
