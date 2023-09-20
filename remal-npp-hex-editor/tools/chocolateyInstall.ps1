@@ -6,15 +6,15 @@ $NotepadPlusPlusProcessName = 'Notepad++'
 $assetsToCopy = 'plugins'
 
 $packageArgs = @{
-    PackageName = 'remal-npp-jstool'
-    UnzipLocation = "${toolsPath}/plugins/JSMinNPP"
-    Url64bit = 'https://sourceforge.net/projects/jsminnpp/files/Uni/JSToolNPP.1.2308.0.uni.64.zip'
-    Checksum64 = '0937cc056dcd936ba99a92ee4b5850e9e097ba413f200e4fe7475786267661c7'
+    PackageName = 'remal-npp-hex-editor'
+    UnzipLocation = "${toolsPath}/plugins/HexEditor"
+    Url64bit = 'https://github.com/chcg/NPP_HexEdit/releases/download/0.9.12/HexEditor_0.9.12_x64.zip'
+    Checksum64 = '8a5076ad37c1675b2848f5f34b25e4e78af454c441718cfddc663dee5f698bf9'
     ChecksumType64 = 'sha256'
-    Url = 'https://sourceforge.net/projects/jsminnpp/files/Uni/JSToolNPP.1.2308.0.uni.32.zip'
-    Checksum = 'b1c3ab7d1041bd58f2fafdce1858a5dfe16a166e5f831e6340ddb5c79335d003'
+    Url = 'https://github.com/chcg/NPP_HexEdit/releases/download/0.9.12/HexEditor_0.9.12_Win32.zip'
+    Checksum = '266be61339df9d7a781ca6f5853ac03db1e35c3c6c1c8bcb2349c619f981c781'
     ChecksumType = 'sha256'
-    SoftwareName = 'remal-npp-jstool*'
+    SoftwareName = 'remal-npp-hex-editor*'
 }
 Install-ChocolateyZipPackage @packageArgs
 

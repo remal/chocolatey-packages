@@ -6,15 +6,15 @@ $NotepadPlusPlusProcessName = 'Notepad++'
 $assetsToCopy = 'plugins'
 
 $packageArgs = @{
-    PackageName = 'remal-npp-jstool'
-    UnzipLocation = "${toolsPath}/plugins/JSMinNPP"
-    Url64bit = 'https://sourceforge.net/projects/jsminnpp/files/Uni/JSToolNPP.1.2308.0.uni.64.zip'
-    Checksum64 = '0937cc056dcd936ba99a92ee4b5850e9e097ba413f200e4fe7475786267661c7'
+    PackageName = '#PACKAGE#'
+    UnzipLocation = "${toolsPath}/plugins/#ID#"
+    Url64bit = '#URL_64#'
+    Checksum64 = '#URL_64_CHECKSUM#'
     ChecksumType64 = 'sha256'
-    Url = 'https://sourceforge.net/projects/jsminnpp/files/Uni/JSToolNPP.1.2308.0.uni.32.zip'
-    Checksum = 'b1c3ab7d1041bd58f2fafdce1858a5dfe16a166e5f831e6340ddb5c79335d003'
+    Url = '#URL_32#'
+    Checksum = '#URL_32_CHECKSUM#'
     ChecksumType = 'sha256'
-    SoftwareName = 'remal-npp-jstool*'
+    SoftwareName = '#PACKAGE#*'
 }
 Install-ChocolateyZipPackage @packageArgs
 

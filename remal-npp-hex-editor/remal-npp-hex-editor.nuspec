@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>remal-npp-compare</id>
+    <id>remal-npp-hex-editor</id>
     <version></version>
-    <title>Notepad++ ComparePlugin plugin</title>
-    <description>Notepad++ ComparePlugin plugin</description>
+    <title>Notepad++ HexEditor plugin</title>
+    <description>Notepad++ HexEditor plugin</description>
     <authors>Semyon Levin</authors>
     <dependencies>
       <dependency id="notepadplusplus.install" version="8.1" />

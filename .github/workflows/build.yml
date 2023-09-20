@@ -29,6 +29,10 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 2
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
     - name: Get changed files
       id: get-changed-files
       uses: tj-actions/changed-files@v39
@@ -38,7 +42,6 @@ jobs:
         quotepath: false
     - name: Get changed packages
       id: get-changed-packages
-      if: ${{steps.get-changed-files.outputs.all_modified_files_count > 0}}
       uses: actions/github-script@v6
       env:
         CHANGED_FILES_JSON: ${{steps.get-changed-files.outputs.all_modified_files}}
@@ -55,13 +58,26 @@ jobs:
           core.info(`changedFiles: ${changedFiles.join(' ')}`)
           const changedPackages = packageNames
             .filter(packageName => changedFiles.some(file => file.startsWith(`${packageName}/`)))
+          if (changedFiles.some(file => file.includes('npp-plugins-generate'))) {
+            require('./npp-plugins-generate-config')
+              .map(plugin => plugin.packageName)
+              .forEach(packageName => {
+                if (!changedPackages.includes(packageName)) {
+                  changedPackages.push(packageName)
+                }
+              })
+          }
           core.info(`changedPackages: ${changedPackages.join(' ')}`)
           core.setOutput('count', changedPackages.length)
           fs.writeFileSync('changed-packages.tmp.txt', changedPackages.join('\n'), 'utf8')
 
 
+    - name: Generate Notepad++ plugin packages
+      run: |
+        node npp-plugins-generate
+
+
     - name: Update versions
-      if: ${{steps.get-changed-packages.outputs.count > 0}}
       uses: actions/github-script@v6
       with:
         script: |
@@ -80,11 +96,8 @@ jobs:
 
     - name: Pack only
       if: ${{
-        (steps.get-changed-packages.outputs.count > 0)
-        && (
-          (github.event_name == 'push' && github.ref != 'refs/heads/main')
-          || (github.event_name != 'push')
-        )
+        (github.event_name == 'push' && github.ref != 'refs/heads/main')
+        || (github.event_name != 'push')
         }}
       run: |
         build-changed "N"
@@ -94,10 +107,7 @@ jobs:
 
     - name: Pack and publish
       if: ${{
-        (steps.get-changed-packages.outputs.count > 0)
-        && (
-          (github.event_name == 'push' && github.ref == 'refs/heads/main')
-        )
+        (github.event_name == 'push' && github.ref == 'refs/heads/main')
         }}
       run: |
         build-changed "Y" "${{secrets.FEEDZ_IO_TOKEN}}"

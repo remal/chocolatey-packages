@@ -2,9 +2,9 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>remal-npp-jstool</id>
-    <version>1694909866.0.0</version>
-    <title>Notepad++ JSTool plugin</title>
-    <description>Notepad++ JSTool plugin</description>
+    <version></version>
+    <title>Notepad++ JSMinNPP plugin</title>
+    <description>Notepad++ JSMinNPP plugin</description>
     <authors>Semyon Levin</authors>
     <dependencies>
       <dependency id="notepadplusplus.install" version="8.1" />
