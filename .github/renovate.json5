@@ -34,7 +34,7 @@
     'npp-plugin': {
       defaultRegistryUrlTemplate: 'https://github.com/notepad-plus-plus/nppPluginList/raw/master/src/pl.x64.json',
       format: 'json',
-      transformTemplates: ["{'releases':[`npp-plugins`.$[`folder-name` = '{{packageName}}'].version]}"],
+      transformTemplates: ["{ 'releases': [ { 'version': $string(`npp-plugins`.$[`folder-name` = '{{packageName}}'].version) } ] }"],
     },
   },
 }
