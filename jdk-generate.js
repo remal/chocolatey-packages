@@ -25,7 +25,6 @@ async function executeLogic() {
         }
     }
 
-
     const majorVersions = Object.keys(allVersions)
     const installers64 = []
     const installers32 = []
@@ -54,6 +53,7 @@ async function executeLogic() {
             delete allVersions[majorVersion]
         }
     }
+
 
     Object.keys(allVersions).forEach((majorVersion, majorVersionIndex) => {
         const fullVersion = allVersions[majorVersion][0]

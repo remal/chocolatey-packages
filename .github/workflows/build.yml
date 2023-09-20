@@ -113,6 +113,7 @@ jobs:
           const packageNames = fs.readFileSync('changed-packages.tmp.txt', 'utf8').split('\n')
             .map(it => it.trim())
             .filter(it => !!it.length)
+            .filter(it => fs.statSync(it).isDirectory())
           packageNames.forEach(packageName => {
             const packageNuspecFile = `${packageName}/${packageName}.nuspec`
             if (!fs.statSync(packageNuspecFile).isFile()) { return }
