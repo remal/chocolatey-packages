@@ -3,7 +3,7 @@
   <metadata>
     <id>#PACKAGE#</id>
     <!-- JDK: #VERSION# -->
-    <version>1694810759.0.0</version>
+    <version></version>
     <title>Temurin JDK #MAJOR_VERSION# as a main JDK on the machine</title>
     <description>Temurin JDK #MAJOR_VERSION# as a main JDK on the machine</description>
     <authors>Semyon Levin</authors>

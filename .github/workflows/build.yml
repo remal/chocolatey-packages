@@ -112,22 +112,18 @@ jobs:
 
 
     # Generate packages:
-    - name: Setup Node.js
-      if: ${{
-        steps.get-changed-jdk-packages.outputs.count > 0
-        || steps.get-changed-npp-plugin-packages.outputs.count > 0
-        }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: 20
     - name: Generate JDK packages
       if: ${{steps.get-changed-jdk-packages.outputs.count > 0}}
-      run: |
-        node jdk-generate
+      uses: actions/github-script@v6
+      with:
+        script: |
+          require('${{github.workspace}}/jdk-generate')
     - name: Generate Notepad++ plugin packages
       if: ${{steps.get-changed-npp-plugin-packages.outputs.count > 0}}
-      run: |
-        node npp-plugins-generate
+      uses: actions/github-script@v6
+      with:
+        script: |
+          require('${{github.workspace}}/npp-plugins-generate')
 
 
     # Build packages:
@@ -148,6 +144,18 @@ jobs:
             content = content.replace(/<version>[\s\S]*?<\/version>/, `<version>${version}.0.0</version>`)
             fs.writeFileSync(packageNuspecFile, '\uFEFF' + content, 'utf8')
           })
+
+    - name: Setup
+      run: |
+        choco feature enable --name allowGlobalConfirmation || exit /B !ERRORLEVEL!
+        rem choco feature disable --name checksumFiles || exit /B !ERRORLEVEL!
+        choco feature enable --name allowEmptyChecksums || exit /B !ERRORLEVEL!
+        choco feature enable --name failOnAutoUninstaller || exit /B !ERRORLEVEL!
+        choco feature enable --name removePackageInformationOnUninstall || exit /B !ERRORLEVEL!
+        choco feature disable --name stopOnFirstPackageFailure || exit /B !ERRORLEVEL!
+        choco feature enable --name useRememberedArgumentsForUpgrades || exit /B !ERRORLEVEL!
+        choco feature disable --name showDownloadProgress
+        choco feature disable --name usePackageRepositoryOptimizations
 
     - name: Pack only
       if: ${{

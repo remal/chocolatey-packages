@@ -2,8 +2,8 @@ const fs = require('fs')
 const path = require('path')
 const https = require('https')
 
-const templateDir = '.jdk-generate-template'
-const templateMainDir = '.jdk-generate-main-template'
+const templateDir = __dirname + '/.jdk-generate-template'
+const templateMainDir = __dirname + '/.jdk-generate-main-template'
 
 const versionsPageSize = 50
 
@@ -63,7 +63,7 @@ async function executeLogic() {
             if (majorVersionIndex >= 1) { console.log('') }
             console.log(`Generating ${packageName} package`)
 
-            const packageDir = packageName
+            const packageDir = __dirname + '/' + packageName
             if (fs.existsSync(packageDir)) {
                 //console.log(`Removing ${packageDir}`)
                 fs.rmSync(packageDir, { recursive: true, force: true })
@@ -102,7 +102,7 @@ async function executeLogic() {
             console.log('')
             console.log(`Generating ${packageName} package`)
 
-            const packageDir = packageName
+            const packageDir = __dirname + '/' + packageName
             if (fs.existsSync(packageDir)) {
                 //console.log(`Removing ${packageDir}`)
                 fs.rmSync(packageDir, { recursive: true, force: true })

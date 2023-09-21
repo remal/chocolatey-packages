@@ -53,15 +53,6 @@ echo Testing !PACKAGE!
 
 if "%CI%" == "true" (
     echo Executing Chocolatey tests on CI
-    choco feature enable --name allowGlobalConfirmation || exit /B !ERRORLEVEL!
-    rem choco feature disable --name checksumFiles || exit /B !ERRORLEVEL!
-    choco feature enable --name allowEmptyChecksums || exit /B !ERRORLEVEL!
-    choco feature enable --name failOnAutoUninstaller || exit /B !ERRORLEVEL!
-    choco feature enable --name removePackageInformationOnUninstall || exit /B !ERRORLEVEL!
-    choco feature disable --name stopOnFirstPackageFailure || exit /B !ERRORLEVEL!
-    choco feature enable --name useRememberedArgumentsForUpgrades || exit /B !ERRORLEVEL!
-    choco feature disable --name showDownloadProgress
-    choco feature disable --name usePackageRepositoryOptimizations
 ) else (
     set /P AREYOUSURE="Executing Chocolatey tests on local machine. Are you sure (Y/[N])?"
     if /I "!AREYOUSURE!" NEQ "Y" exit /B 0

@@ -3,7 +3,7 @@ const path = require('path')
 const https = require('https')
 
 const config = require('./npp-plugins-generate-config')
-const templateDir = '.npp-plugins-generate-template'
+const templateDir = __dirname + '/.npp-plugins-generate-template'
 
 async function executeLogic() {
     function processPlugins(plugins, bits) {
@@ -30,7 +30,7 @@ async function executeLogic() {
         if (packageIndex >= 1) { console.log('') }
         console.log(`Generating ${packageConfig.packageName} package`)
 
-        const packageDir = packageConfig.packageName
+        const packageDir = __dirname + '/' + packageConfig.packageName
         if (fs.existsSync(packageDir)) {
             //console.log(`Removing ${packageDir}`)
             fs.rmSync(packageDir, { recursive: true, force: true })
