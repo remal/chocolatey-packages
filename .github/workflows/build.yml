@@ -117,13 +117,13 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          require('${{github.workspace}}/jdk-generate')
+          require(process.cwd() + '/jdk-generate')
     - name: Generate Notepad++ plugin packages
       if: ${{steps.get-changed-npp-plugin-packages.outputs.count > 0}}
       uses: actions/github-script@v6
       with:
         script: |
-          require('${{github.workspace}}/npp-plugins-generate')
+          require(process.cwd() + '/npp-plugins-generate')
 
 
     # Build packages:
