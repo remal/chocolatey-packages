@@ -1,8 +1,8 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>remal-root-editorconfig</id>
-    <version>1.1</version>
+    <version>1695342356.0.0</version>
     <title>Remal root .editorconfig file</title>
     <authors>Semyon Levin</authors>
     <description>Remal root .editorconfig file</description>
