@@ -13,13 +13,13 @@ insert_final_newline = true
 [*.properties]
 charset = latin1
 
-[*.{yml,yaml}]
+[{*.yml,*.yaml,*.json,*.json5}]
 indent_size = 2
 
-[*.{cmd,bat}]
+[{*.cmd,*.bat}]
 end_of_line = crlf
 
-[*.{nuspec,ps1,psm1}]
+[{*.nuspec,*.ps1,*.psm1}]
 charset = utf-8-bom
 end_of_line = crlf
 max_line_length = 999
