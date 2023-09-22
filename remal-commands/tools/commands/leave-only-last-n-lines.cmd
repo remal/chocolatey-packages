@@ -2,9 +2,9 @@
 
 setlocal
 
-set FILE=%1
+set FILE=%~1
 if "%FILE%" == "" goto usage
-set MAX_LINES=%2
+set MAX_LINES=%~2
 if "%MAX_LINES%" == "" goto usage
 if %MAX_LINES% leq 0 goto usage
 

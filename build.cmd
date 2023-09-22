@@ -17,6 +17,13 @@ if "!REPOSITORY!" == "" (
 
 rem ===========================================================================
 
+if exist "%~dp0\!PACKAGE!\.do-not-build" (
+    echo Skip building !PACKAGE! (because of .do-not-build marker)
+    exit /B 0
+)
+
+rem ===========================================================================
+
 if exist "%~dp0\!PACKAGE!\test-prerequisites.cmd" (
     call "%~dp0\!PACKAGE!\test-prerequisites.cmd"
     if !ERRORLEVEL! NEQ 0 (
@@ -90,6 +97,13 @@ echo.
 
 rem ===========================================================================
 
+if exist "%~dp0\!PACKAGE!\.do-not-publish" (
+    echo Skip pulishing !PACKAGE! (because of .do-not-publish marker)
+    exit /B 0
+)
+
+rem ===========================================================================
+
 echo.
 
 if /I "!PUBLISH!" NEQ "Y" (
@@ -113,16 +127,12 @@ if /I "!PUBLISH!" NEQ "Y" (
     )
     popd
 
+    del ".packed\%PACKAGE%.*.nupkg.bak" >nul 2>nul
+    for /F "tokens=*" %%F in ('dir ".packed\%PACKAGE%.*.nupkg" /A-D /B') do (
+        ren ".packed\%%F" "%%~nxF.bak"
+    )
+
+    copy /Y "!TARGET_DIR!" .packed
+
     git rev-parse HEAD > .last-publish.commit
 )
-
-echo.
-
-rem ===========================================================================
-
-del ".packed\%PACKAGE%.*.nupkg.bak" >nul 2>nul
-for /F "tokens=*" %%F in ('dir ".packed\%PACKAGE%.*.nupkg" /A-D /B') do (
-    ren ".packed\%%F" "%%~nxF.bak"
-)
-
-copy /Y "!TARGET_DIR!" .packed
