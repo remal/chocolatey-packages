@@ -1,6 +1,8 @@
 @echo off
 setlocal enableDelayedExpansion
 
+echo 0
+
 set PACKAGE=%~1
 if "!PACKAGE!" == "" (
     echo ::error::Package name is not set or empty 1>&2
@@ -15,12 +17,16 @@ if "!REPOSITORY!" == "" (
     exit /B 1
 )
 
+echo 1
+
 rem ===========================================================================
 
 if exist "%~dp0\!PACKAGE!\.do-not-build" (
     echo Skip building !PACKAGE! (because of .do-not-build marker)
     exit /B 0
 )
+
+echo 2
 
 rem ===========================================================================
 
@@ -37,11 +43,15 @@ if exist "%~dp0\!PACKAGE!\test-prerequisites.cmd" (
     echo.
 )
 
+echo 3
+
 rem ===========================================================================
 
 set TARGET_DIR=%TEMP%\!PACKAGE!
 rd /S /Q "!TARGET_DIR!" 2>nul
 mkdir "!TARGET_DIR!"
+
+echo 4
 
 rem ===========================================================================
 
@@ -56,6 +66,8 @@ if !ERRORLEVEL! NEQ 0 (
 )
 
 echo.
+
+echo 5
 
 rem ===========================================================================
 

@@ -11,7 +11,6 @@ for /F "tokens=*" %%P in (changed-packages.tmp.txt) do (
     if exist "%~dp0\%%P\%%P.nuspec" (
         echo ::group::%%P
 
-        echo call "%~dp0\build" "%%P" %*
         call "%~dp0\build" "%%P" %*
 
         set LAST_ERRORLEVEL=!ERRORLEVEL!
