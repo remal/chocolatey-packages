@@ -27,10 +27,12 @@ async function executeLogic() {
     //console.log('config', config)
 
     config.forEach((packageConfig, packageIndex) => {
-        if (packageIndex >= 1) { console.log('') }
-        console.log(`Generating ${packageConfig.packageName} package`)
+        const packageName = packageConfig.packageName
 
-        const packageDir = __dirname + '/' + packageConfig.packageName
+        if (packageIndex >= 1) { console.log('') }
+        console.log(`Generating ${packageName} package`)
+
+        const packageDir = __dirname + '/' + packageName
         if (fs.existsSync(packageDir)) {
             //console.log(`Removing ${packageDir}`)
             fs.rmSync(packageDir, { recursive: true, force: true })
@@ -38,7 +40,7 @@ async function executeLogic() {
 
         function substitute(string) {
             return string
-                .replaceAll('#PACKAGE#', packageConfig.packageName)
+                .replaceAll('#PACKAGE#', packageName)
                 .replaceAll('#ID#', packageConfig.id)
                 .replaceAll('#VERSION#', packageConfig.version ?? '')
                 .replaceAll('#URL_64#', packageConfig.url64 ?? '')

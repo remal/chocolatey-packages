@@ -25,11 +25,16 @@ if exist "%~dp0\!PACKAGE!\.do-not-build" (
 rem ===========================================================================
 
 if exist "%~dp0\!PACKAGE!\test-prerequisites.cmd" (
+    echo.
+
+    echo Testing prerequisites
     call "%~dp0\!PACKAGE!\test-prerequisites.cmd"
     if !ERRORLEVEL! NEQ 0 (
         echo ::error::Prerequisites tests failed with error level !ERRORLEVEL! 1>&2
         exit /B !ERRORLEVEL!
     )
+
+    echo.
 )
 
 rem ===========================================================================

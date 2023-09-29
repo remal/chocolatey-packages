@@ -101,11 +101,10 @@ jobs:
       with:
         script: |
           const fs = require('fs')
-          const changedPackages = fs.readFileSync('changed-packages.tmp.txt', 'utf8').split('\n')
+          const changedPackages = fs.readFileSync('changed-packages.tmp.txt', 'utf8').split(/[\n\r]+/)
             .map(it => it.trim())
             .filter(it => !!it.length)
             .filter((value, index, array) => array.indexOf(value) === index)
-            .filter(packageName => fs.existsSync(`${packageName}/${packageName}.nuspec`))
           core.info(`changedPackages: ${changedPackages.join(' ')}`)
           core.setOutput('count', changedPackages.length)
           fs.writeFileSync('changed-packages.tmp.txt', changedPackages.join('\n'), 'utf8')
@@ -134,9 +133,10 @@ jobs:
         script: |
           const fs = require('fs')
           const version = Math.floor(Date.now() / 1000)
-          const packageNames = fs.readFileSync('changed-packages.tmp.txt', 'utf8').split('\n')
+          const packageNames = fs.readFileSync('changed-packages.tmp.txt', 'utf8').split(/[\n\r]+/)
             .map(it => it.trim())
             .filter(it => !!it.length)
+            .filter(packageName => fs.existsSync(`${packageName}/${packageName}.nuspec`))
           packageNames.forEach(packageName => {
             core.info(`Setting version of ${packageName} to ${version}`)
             const packageNuspecFile = `${packageName}/${packageName}.nuspec`
@@ -145,7 +145,7 @@ jobs:
             fs.writeFileSync(packageNuspecFile, '\uFEFF' + content, 'utf8')
           })
 
-    - name: Setup
+    - name: Setup Chocolatey
       run: |
         choco feature enable --name allowGlobalConfirmation || exit /B !ERRORLEVEL!
         rem choco feature disable --name checksumFiles || exit /B !ERRORLEVEL!
