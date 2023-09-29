@@ -23,6 +23,10 @@ module.exports = [
     "id": "DSpellCheck",
     "packageName": "remal-npp-dspellcheck",
   },
+  {
+    "id": "NppMarkdownPanel",
+    "packageName": "remal-npp-markdown-panel",
+  },
 ]
 
 
