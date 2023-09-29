@@ -18,11 +18,8 @@ if "!REPOSITORY!" == "" (
 rem ===========================================================================
 
 if exist "%~dp0\!PACKAGE!\.do-not-build" (
-    echo true
-    echo Skip building !PACKAGE! (because of .do-not-build marker)
+    echo Skip building !PACKAGE! because of .do-not-build marker
     exit /B 0
-) else (
-    echo false
 )
 
 rem ===========================================================================
@@ -106,7 +103,7 @@ echo.
 rem ===========================================================================
 
 if exist "%~dp0\!PACKAGE!\.do-not-publish" (
-    echo Skip pulishing !PACKAGE! (because of .do-not-publish marker)
+    echo Skip pulishing !PACKAGE! because of .do-not-publish marker
     exit /B 0
 )
 
