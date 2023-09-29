@@ -20,12 +20,12 @@ module.exports = [
     "packageName": "remal-npp-hex-editor",
   },
   {
-    "id": "DSpellCheck",
-    "packageName": "remal-npp-dspellcheck",
-  },
-  {
     "id": "NppMarkdownPanel",
     "packageName": "remal-npp-markdown-panel",
+  },
+  {
+    "id": "DSpellCheck",
+    "packageName": "remal-npp-dspellcheck",
   },
 ]
 
