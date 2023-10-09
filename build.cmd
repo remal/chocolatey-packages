@@ -55,6 +55,8 @@ if !ERRORLEVEL! NEQ 0 (
     exit /B !ERRORLEVEL!
 )
 
+dir "!TARGET_DIR!"
+
 echo.
 
 rem ===========================================================================
@@ -89,7 +91,7 @@ echo choco uninstall "!PACKAGE!" --force --debug
 choco uninstall "!PACKAGE!" --force --debug
 if !ERRORLEVEL! NEQ 0 (
     set LAST_ERRORLEVEL=!ERRORLEVEL!
-    echo ::error::Command execution failed: choco install 1>&2
+    echo ::error::Command execution failed: choco uninstall 1>&2
     choco source remove "-n=test-!PACKAGE!-local" 2>nul
     choco source remove "-n=test-!PACKAGE!-repo" 2>nul
     exit /B !LAST_ERRORLEVEL!
