@@ -9,7 +9,7 @@ foreach ($identity in $identities) {
 & corepack enable
 
 
-$yarnVersion = '3.4.1' # renovate: datasource=npm depName=yarn
+$yarnVersion = '3.4.1' # renovate: datasource=npm depName=@yarnpkg/cli
 Get-WebFile -FileName "${env:LOCALAPPDATA}\node\corepack\yarn\${yarnVersion}\yarn.js" -Url "https://repo.yarnpkg.com/${yarnVersion}/packages/yarnpkg-cli/bin/yarn.js"
 
 & corepack prepare "yarn@${yarnVersion}" --activate
