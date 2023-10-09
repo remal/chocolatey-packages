@@ -75,9 +75,9 @@ choco source add -n="test-!PACKAGE!-local" -s="!TARGET_DIR!" || exit /B !ERRORLE
 choco source remove -n="test-!PACKAGE!-repo" 2>nul
 choco source add -n="test-!PACKAGE!-repo" -s="!REPOSITORY!" || exit /B !ERRORLEVEL!
 
-echo choco install "!PACKAGE!" --force
-choco install "!PACKAGE!" --force
-if !LAST_ERRORLEVEL! NEQ 0 (
+echo choco install "!PACKAGE!" --force --debug
+choco install "!PACKAGE!" --force --debug
+if !ERRORLEVEL! NEQ 0 (
     set LAST_ERRORLEVEL=!ERRORLEVEL!
     echo ::error::Command execution failed: choco install 1>&2
     choco source remove "-n=test-!PACKAGE!-local" 2>nul
@@ -85,9 +85,9 @@ if !LAST_ERRORLEVEL! NEQ 0 (
     exit /B !LAST_ERRORLEVEL!
 )
 
-echo choco uninstall "!PACKAGE!" --force
-choco uninstall "!PACKAGE!" --force
-if !LAST_ERRORLEVEL! NEQ 0 (
+echo choco uninstall "!PACKAGE!" --force --debug
+choco uninstall "!PACKAGE!" --force --debug
+if !ERRORLEVEL! NEQ 0 (
     set LAST_ERRORLEVEL=!ERRORLEVEL!
     echo ::error::Command execution failed: choco install 1>&2
     choco source remove "-n=test-!PACKAGE!-local" 2>nul
