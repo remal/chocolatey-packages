@@ -33,8 +33,13 @@
   regexManagers: [
     {
       fileMatch: ['\\.nuspec$'],
-      matchStrings: ["<dependency\\s+id=\"(?<depName>[^\"]+)\"\\s+version=\"(?<currentValue>[^\"]+)\"\\s*/>"],
+      matchStrings: ["<dependency\\s+id=\"(?<depName>[^\"]+)\"\\s+version=\"(?<currentValue>[^\"]+)\"[ ]*/>"],
       datasourceTemplate: "nuget",
+    },
+    {
+      fileMatch: ['\\.ps(m)?1$'],
+      matchStrings: ["\\$\\w+[ ]*=[ ]*(['\"])(?<currentValue>[^'\"]*)\\1[ ]*#[ ]*renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?"],
+      versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
     },
     {
       fileMatch: ['^\\.github/workflows/.+\\.yml$'],
@@ -44,13 +49,13 @@
     },
     {
       fileMatch: ['\\.nuspec$'],
-      matchStrings: ["<!--\\s*JDK:\\s*(?<currentValue>[^#]+?)\\s*-->"],
+      matchStrings: ["<!--[ ]*JDK:[ ]*(?<currentValue>[^#]+?)[ ]*-->"],
       depNameTemplate: 'java-jdk',
       datasourceTemplate: "java-version",
     },
     {
       fileMatch: ['\\.nuspec$'],
-      matchStrings: ["<!--\\s*NPP Plugin:\\s*(?<depName>[^:#>]+):(?<currentValue>[^#]+?)\\s*-->"],
+      matchStrings: ["<!--[ ]*NPP Plugin:[ ]*(?<depName>[^:#>]+):(?<currentValue>[^#]+?)[ ]*-->"],
       datasourceTemplate: "custom.npp-plugin",
     },
   ],
