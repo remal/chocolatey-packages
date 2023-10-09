@@ -78,7 +78,7 @@ choco source remove -n="test-!PACKAGE!-repo" 2>nul
 choco source add -n="test-!PACKAGE!-repo" -s="!REPOSITORY!" || exit /B !ERRORLEVEL!
 
 set INSTALL_LOGGING=
-rem set INSTALL_LOGGING=--trace
+set INSTALL_LOGGING=--trace
 
 echo choco install "!PACKAGE!" --force %INSTALL_LOGGING%
 choco install "!PACKAGE!" --force %INSTALL_LOGGING%
