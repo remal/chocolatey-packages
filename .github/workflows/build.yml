@@ -157,7 +157,7 @@ jobs:
         choco feature disable --name showDownloadProgress
         choco feature disable --name usePackageRepositoryOptimizations
 
-    - name: Pack only
+    - name: Pack and test
       if: ${{
         steps.get-changed-packages.outputs.count > 0
         && (
@@ -171,7 +171,7 @@ jobs:
           exit !ERRORLEVEL!
         )
 
-    - name: Pack and publish
+    - name: Pack, test, and publish
       if: ${{
         steps.get-changed-packages.outputs.count > 0
         && github.event_name == 'push'

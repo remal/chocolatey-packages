@@ -38,7 +38,7 @@
     },
     {
       fileMatch: ['\\.ps(m)?1$'],
-      matchStrings: ["\\$\\w+[ ]*=[ ]*(['\"])(?<currentValue>[^'\"]*)(['\"])[ ]*#[ ]*renovate[ ]*:[ ]*datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?"],
+      matchStrings: ["\\$\\w+[ ]*=[ ]*(['\"])(?<currentValue>[^'\"]*)(['\"])[ ]*#[ ]*renovate[ ]*:[ ]*datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?"],
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
     },
     {
