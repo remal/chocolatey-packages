@@ -81,7 +81,7 @@ if exist "%~dp0\!PACKAGE!\.do-not-test" (
     choco source add -n="test-!PACKAGE!-repo" -s="!REPOSITORY!" || exit /B !ERRORLEVEL!
 
     set INSTALL_LOGGING=
-    set INSTALL_LOGGING=--trace
+    rem set INSTALL_LOGGING=--trace
 
     echo choco install "!PACKAGE!" --force %INSTALL_LOGGING%
     choco install "!PACKAGE!" --force %INSTALL_LOGGING%
