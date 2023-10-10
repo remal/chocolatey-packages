@@ -61,49 +61,53 @@ echo.
 
 rem ===========================================================================
 
-echo.
-
-echo Testing !PACKAGE!
-
-if "%CI%" == "true" (
-    echo Executing Chocolatey tests on CI
+if exist "%~dp0\!PACKAGE!\.do-not-test" (
+    echo Skip testing !PACKAGE! because of .do-not-build marker
 ) else (
-    set /P AREYOUSURE="Executing Chocolatey tests on local machine. Are you sure (Y/[N])?"
-    if /I "!AREYOUSURE!" NEQ "Y" exit /B 0
-)
+    echo.
 
-choco source remove -n="test-!PACKAGE!-local" 2>nul
-choco source add -n="test-!PACKAGE!-local" -s="!TARGET_DIR!" || exit /B !ERRORLEVEL!
-choco source remove -n="test-!PACKAGE!-repo" 2>nul
-choco source add -n="test-!PACKAGE!-repo" -s="!REPOSITORY!" || exit /B !ERRORLEVEL!
+    echo Testing !PACKAGE!
 
-set INSTALL_LOGGING=
-set INSTALL_LOGGING=--trace
+    if "%CI%" == "true" (
+        echo Executing Chocolatey tests on CI
+    ) else (
+        set /P AREYOUSURE="Executing Chocolatey tests on local machine. Are you sure (Y/[N])?"
+        if /I "!AREYOUSURE!" NEQ "Y" exit /B 0
+    )
 
-echo choco install "!PACKAGE!" --force %INSTALL_LOGGING%
-choco install "!PACKAGE!" --force %INSTALL_LOGGING%
-if !ERRORLEVEL! NEQ 0 (
-    set LAST_ERRORLEVEL=!ERRORLEVEL!
-    echo ::error::Command execution failed: choco install 1>&2
+    choco source remove -n="test-!PACKAGE!-local" 2>nul
+    choco source add -n="test-!PACKAGE!-local" -s="!TARGET_DIR!" || exit /B !ERRORLEVEL!
+    choco source remove -n="test-!PACKAGE!-repo" 2>nul
+    choco source add -n="test-!PACKAGE!-repo" -s="!REPOSITORY!" || exit /B !ERRORLEVEL!
+
+    set INSTALL_LOGGING=
+    set INSTALL_LOGGING=--trace
+
+    echo choco install "!PACKAGE!" --force %INSTALL_LOGGING%
+    choco install "!PACKAGE!" --force %INSTALL_LOGGING%
+    if !ERRORLEVEL! NEQ 0 (
+        set LAST_ERRORLEVEL=!ERRORLEVEL!
+        echo ::error::Command execution failed: choco install 1>&2
+        choco source remove "-n=test-!PACKAGE!-local" 2>nul
+        choco source remove "-n=test-!PACKAGE!-repo" 2>nul
+        exit /B !LAST_ERRORLEVEL!
+    )
+
+    echo choco uninstall "!PACKAGE!" --force %INSTALL_LOGGING%
+    choco uninstall "!PACKAGE!" --force %INSTALL_LOGGING%
+    if !ERRORLEVEL! NEQ 0 (
+        set LAST_ERRORLEVEL=!ERRORLEVEL!
+        echo ::error::Command execution failed: choco uninstall 1>&2
+        choco source remove "-n=test-!PACKAGE!-local" 2>nul
+        choco source remove "-n=test-!PACKAGE!-repo" 2>nul
+        exit /B !LAST_ERRORLEVEL!
+    )
+
     choco source remove "-n=test-!PACKAGE!-local" 2>nul
     choco source remove "-n=test-!PACKAGE!-repo" 2>nul
-    exit /B !LAST_ERRORLEVEL!
+
+    echo.
 )
-
-echo choco uninstall "!PACKAGE!" --force %INSTALL_LOGGING%
-choco uninstall "!PACKAGE!" --force %INSTALL_LOGGING%
-if !ERRORLEVEL! NEQ 0 (
-    set LAST_ERRORLEVEL=!ERRORLEVEL!
-    echo ::error::Command execution failed: choco uninstall 1>&2
-    choco source remove "-n=test-!PACKAGE!-local" 2>nul
-    choco source remove "-n=test-!PACKAGE!-repo" 2>nul
-    exit /B !LAST_ERRORLEVEL!
-)
-
-choco source remove "-n=test-!PACKAGE!-local" 2>nul
-choco source remove "-n=test-!PACKAGE!-repo" 2>nul
-
-echo.
 
 rem ===========================================================================
 
