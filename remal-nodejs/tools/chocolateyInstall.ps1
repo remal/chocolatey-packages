@@ -10,17 +10,13 @@ foreach ($identity in $identities) {
 
 
 & corepack enable
+if ($? -eq $false) { throw "<Error Exit>" }
 
 
 $yarnVersion = '3.6.4' # renovate: datasource=npm depName=@yarnpkg/cli
-$tergetFile = "${env:LOCALAPPDATA}\node\corepack\yarn\${yarnVersion}\yarn.js"
+$targetFile = "${env:LOCALAPPDATA}\node\corepack\yarn\${yarnVersion}\yarn.js"
 $url = "https://repo.yarnpkg.com/${yarnVersion}/packages/yarnpkg-cli/bin/yarn.js"
-
-$targetDir = [System.IO.Path]::GetDirectoryName($tergetFile)
-if (!(Test-Path($targetDir))) {
-    [System.IO.Directory]::CreateDirectory($targetDir) | Out-Null
-}
-
-Get-WebFile -FileName $tergetFile -Url $url
+Get-WebFile -FileName $targetFile -Url $url
 
 & corepack prepare "yarn@${yarnVersion}" --activate
+if ($? -eq $false) { throw "<Error Exit>" }
