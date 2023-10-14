@@ -23,6 +23,7 @@ for /F "tokens=*" %%P in (changed-packages.tmp.txt) do (
 
         if !LAST_ERRORLEVEL! NEQ 0 (
             echo ::error::Buiding %%P failed 1>&2
+            exit /B !LAST_ERRORLEVEL!
         )
     )
 )

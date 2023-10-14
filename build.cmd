@@ -75,6 +75,8 @@ if exist "%~dp0\!PACKAGE!\.do-not-test" (
         if /I "!AREYOUSURE!" NEQ "Y" exit /B 0
     )
 
+    choco source remove -n="test-local" 2>nul
+    choco source add -n="test-local" -s="%~dp0\.packed" || exit /B !ERRORLEVEL!
     choco source remove -n="test-!PACKAGE!-local" 2>nul
     choco source add -n="test-!PACKAGE!-local" -s="!TARGET_DIR!" || exit /B !ERRORLEVEL!
     choco source remove -n="test-!PACKAGE!-repo" 2>nul
@@ -98,11 +100,13 @@ if exist "%~dp0\!PACKAGE!\.do-not-test" (
     if !ERRORLEVEL! NEQ 0 (
         set LAST_ERRORLEVEL=!ERRORLEVEL!
         echo ::error::Command execution failed: choco uninstall 1>&2
+        choco source remove "-n=test-local" 2>nul
         choco source remove "-n=test-!PACKAGE!-local" 2>nul
         choco source remove "-n=test-!PACKAGE!-repo" 2>nul
         exit /B !LAST_ERRORLEVEL!
     )
 
+    choco source remove "-n=test-local" 2>nul
     choco source remove "-n=test-!PACKAGE!-local" 2>nul
     choco source remove "-n=test-!PACKAGE!-repo" 2>nul
 
@@ -146,7 +150,7 @@ if /I "!PUBLISH!" NEQ "Y" (
         ren ".packed\%%F" "%%~nxF.bak" >nul 2>nul
     )
 
-    copy /Y "!TARGET_DIR!" .packed
+    copy /Y "!TARGET_DIR!" "%~dp0\.packed"
 
     git rev-parse HEAD > .last-publish.commit
 )
