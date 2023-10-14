@@ -23,4 +23,8 @@ packageNames.forEach(packageName => {
     content = content.replaceAll(dependenciesRegEx, `<dependency id="$1" version="${fullVersion}" />`)
 
     fs.writeFileSync(packageNuspecFile, '\uFEFF' + content, 'utf8')
+
+
+    const versionFile = `${packageName}/${packageName}.nuspec.version.tmp`
+    fs.writeFileSync(versionFile, fullVersion, 'utf8')
 })

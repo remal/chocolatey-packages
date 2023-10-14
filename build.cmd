@@ -45,6 +45,14 @@ mkdir "!TARGET_DIR!"
 
 rem ===========================================================================
 
+set CURRENT_VERSION=
+if exist "%~dp0\!PACKAGE!\!PACKAGE!.nuspec.version.tmp" (
+    set /p CURRENT_VERSION=<"%~dp0\!PACKAGE!\!PACKAGE!.nuspec.version.tmp"
+    echo Building version: !CURRENT_VERSION!
+)
+
+rem ===========================================================================
+
 echo.
 
 echo Packing !PACKAGE!
@@ -85,8 +93,8 @@ if exist "%~dp0\!PACKAGE!\.do-not-test" (
     set INSTALL_LOGGING=
     rem set INSTALL_LOGGING=--trace
 
-    echo choco install "!PACKAGE!" --force %INSTALL_LOGGING%
-    choco install "!PACKAGE!" --force %INSTALL_LOGGING%
+    echo choco install "!PACKAGE!" "--version=!CURRENT_VERSION!" --force --force-dependencies-dependencies %INSTALL_LOGGING%
+    choco install "!PACKAGE!" "--version=!CURRENT_VERSION!" --force --force-dependencies %INSTALL_LOGGING%
     if !ERRORLEVEL! NEQ 0 (
         set LAST_ERRORLEVEL=!ERRORLEVEL!
         echo ::error::Command execution failed: choco install 1>&2
@@ -95,8 +103,8 @@ if exist "%~dp0\!PACKAGE!\.do-not-test" (
         exit /B !LAST_ERRORLEVEL!
     )
 
-    echo choco uninstall "!PACKAGE!" --force %INSTALL_LOGGING%
-    choco uninstall "!PACKAGE!" --force %INSTALL_LOGGING%
+    echo choco uninstall "!PACKAGE!" --force --force-dependencies %INSTALL_LOGGING%
+    choco uninstall "!PACKAGE!" --force --force-dependencies %INSTALL_LOGGING%
     if !ERRORLEVEL! NEQ 0 (
         set LAST_ERRORLEVEL=!ERRORLEVEL!
         echo ::error::Command execution failed: choco uninstall 1>&2
