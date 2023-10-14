@@ -8,6 +8,7 @@
     <description>Temurin JDK #MAJOR_VERSION# as a main JDK on the machine</description>
     <authors>Semyon Levin</authors>
     <dependencies>
+      <dependency id="remal-jdk#MAJOR_VERSION#" version="" />
       <dependency id="remal-packages.extension" version="1695169326.0.0" />
     </dependencies>
   </metadata>
