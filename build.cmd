@@ -55,7 +55,7 @@ if !ERRORLEVEL! NEQ 0 (
     exit /B !ERRORLEVEL!
 )
 
-dir "!TARGET_DIR!"
+rem dir "!TARGET_DIR!"
 
 echo.
 
