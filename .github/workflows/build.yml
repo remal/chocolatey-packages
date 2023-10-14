@@ -51,15 +51,16 @@ jobs:
         script: |
           const fs = require('fs')
           const jdkVer = process.env.LATEST_JDK_VERSION.split(/\./)[0] | 0
+          core.setOutput('version', jdkVer)
           const packageNames = [`remal-jdk${jdkVer}`, `remal-jdk${jdkVer}-main`]
           const exists = packageNames.every(packageName => fs.existsSync(`${packageName}/${packageName}.nuspec`))
           core.setOutput('exists', exists ? 'true' : 'false')
 
-    - name: Generate JDK ${{env.LATEST_JDK_VERSION}} package
+    - name: Generate JDK ${{steps.check-latest-jdk-package.outputs.version}} package
       if: ${{!steps.check-latest-jdk-package.outputs.exists}}
       uses: actions/github-script@v6
       env:
-        JDK_VERSIONS_TO_GENERATE: ${{env.LATEST_JDK_VERSION}}
+        JDK_VERSIONS_TO_GENERATE: ${{steps.check-latest-jdk-package.outputs.version}}
       with:
         script: |
           require(process.cwd() + '/jdk-generate')
@@ -71,7 +72,7 @@ jobs:
         script: |
           const fs = require('fs')
           const changedPackages = []
-          const changedFiles = (process.env.CHANGED_FILES.split(':').map(it => it.trim()).filter(it => !!it.length)
+          const changedFiles = process.env.CHANGED_FILES.split(':').map(it => it.trim()).filter(it => !!it.length)
           if (changedFiles.some(file => file.includes('jdk-generate'))) {
             const latestJdkVersion = process.env.LATEST_JDK_VERSION.split(/\./)[0] | 0
             for (let jdkVer = 8; jdkVer <= latestJdkVersion; ++jdkVer) {
