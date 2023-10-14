@@ -5,7 +5,7 @@ const https = require('https')
 const templateDir = __dirname + '/.jdk-generate-template'
 const templateMainDir = __dirname + '/.jdk-generate-main-template'
 
-const versionsToGenerate = (process.env.JDK_VERSIONS_TO_GENERATE ?: process.argv[2] ?: '')
+const versionsToGenerate = (process.env.JDK_VERSIONS_TO_GENERATE || process.argv[2] || '')
     .split(/,/g)
     .map(it => it.trim())
     .filter(it => !!it.length)
