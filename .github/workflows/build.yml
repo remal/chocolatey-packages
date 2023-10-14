@@ -118,8 +118,8 @@ jobs:
           require(process.cwd() + '/npp-plugins-generate')
 
 
-    # Process generic changed packages:
-    - name: Get changed packages
+    # Process general changed packages:
+    - name: Get general changed packages
       uses: actions/github-script@v6
       with:
         script: |
@@ -127,7 +127,7 @@ jobs:
           const packageNames = fs.readdirSync('.')
             .filter(file => !file.startsWith('.'))
             .filter(packageName => fs.existsSync(`${packageName}/${packageName}.nuspec`))
-          core.info(`packageNames: ${packageNames.join(' ')}`)
+          core.debug(`packageNames: ${packageNames.join(' ')}`)
           const changedFiles = process.env.CHANGED_FILES.split(':').map(it => it.trim()).filter(it => !!it.length)
           core.info(`changedFiles: ${changedFiles.join(' ')}`)
           const changedPackages = packageNames
@@ -137,7 +137,7 @@ jobs:
 
 
     # Canonize the list of changed packages:
-    - name: Process changed-packages.tmp.txt file
+    - name: Process `changed-packages.tmp.txt` file
       id: get-changed-packages
       uses: actions/github-script@v6
       with:

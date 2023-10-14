@@ -143,7 +143,7 @@ if /I "!PUBLISH!" NEQ "Y" (
 
     del ".packed\%PACKAGE%.*.nupkg.bak" >nul 2>nul
     for /F "tokens=*" %%F in ('dir ".packed\%PACKAGE%.*.nupkg" /A-D /B') do (
-        ren ".packed\%%F" "%%~nxF.bak"
+        ren ".packed\%%F" "%%~nxF.bak" >nul 2>nul
     )
 
     copy /Y "!TARGET_DIR!" .packed
