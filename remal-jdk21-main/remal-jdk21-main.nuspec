@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>remal-jdk21-main</id>
+    <!-- JDK: 21.0.0+35.0.LTS -->
+    <version>1697320777.0.0</version>
+    <title>Temurin JDK 21 as a main JDK on the machine</title>
+    <description>Temurin JDK 21 as a main JDK on the machine</description>
+    <authors>Semyon Levin</authors>
+    <dependencies>
+      <dependency id="remal-packages.extension" version="1695169326.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
