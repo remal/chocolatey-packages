@@ -85,7 +85,6 @@ jobs:
           core.info(`changedPackages: ${changedPackages.join(' ')}`)
           core.setOutput('count', changedPackages.length)
           fs.appendFileSync('changed-packages.tmp.txt', '\n\n' + changedPackages.join('\n'), 'utf8')
-          exit(1)
 
     - name: Generate JDK packages
       if: ${{steps.get-changed-jdk-packages.outputs.count > 0}}
