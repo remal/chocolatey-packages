@@ -33,32 +33,12 @@ jobs:
 
 
     # Create a list of changed packages:
-    - name: Process changed-packages.tmp.txt file
+    - name: Create changed-packages.tmp.txt file
       run: |
         type NUL > changed-packages.tmp.txt
 
-    - name: Get changed files
-      id: get-changed-files
-      run: |
-        calculate-diff-from-last-publish-commit
 
-    - name: Get changed packages
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const fs = require('fs')
-          const packageNames = fs.readdirSync('.')
-            .filter(file => !file.startsWith('.'))
-            .filter(file => fs.statSync(file).isDirectory())
-            .filter(packageName => fs.statSync(`${packageName}/${packageName}.nuspec`).isFile())
-          core.info(`packageNames: ${packageNames.join(' ')}`)
-          const changedFiles = process.env.CHANGED_FILES.split(':').map(it => it.trim()).filter(it => !!it.length)
-          core.info(`changedFiles: ${changedFiles.join(' ')}`)
-          const changedPackages = packageNames
-            .filter(packageName => changedFiles.some(file => file.startsWith(`${packageName}/`)))
-          core.info(`changedPackages: ${changedPackages.join(' ')}`)
-          fs.appendFileSync('changed-packages.tmp.txt', '\n\n' + changedPackages.join('\n'), 'utf8')
-
+    # Generate packages:
     - name: Collect changed JDK packages
       id: get-changed-jdk-packages
       uses: actions/github-script@v6
@@ -78,6 +58,33 @@ jobs:
           core.setOutput('count', changedPackages.length)
           fs.appendFileSync('changed-packages.tmp.txt', '\n\n' + changedPackages.join('\n'), 'utf8')
 
+    - name: Generate JDK packages
+      if: ${{steps.get-changed-jdk-packages.outputs.count > 0}}
+      uses: actions/github-script@v6
+      with:
+        script: |
+          require(process.cwd() + '/jdk-generate')
+
+    - name: Check latest JDK package
+      id: check-latest-jdk-package
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs')
+          const jdkVer = process.env.LATEST_JDK_VERSION.split(/\./)[0] | 0
+          const packageNames = [`remal-jdk${jdkVer}`, `remal-jdk${jdkVer}-main`]
+          const exists = packageNames.every(packageName => fs.existsSync(`${packageName}/${packageName}.nuspec`))
+          core.setOutput('exists', exists ? 'true' : 'false')
+
+    - name: Generate JDK ${{env.LATEST_JDK_VERSION}} package
+      if: ${{!steps.check-latest-jdk-package.outputs.exists}}
+      uses: actions/github-script@v6
+      env:
+        JDK_VERSIONS_TO_GENERATE: ${{env.LATEST_JDK_VERSION}}
+      with:
+        script: |
+          require(process.cwd() + '/jdk-generate')
+
     - name: Collect changed NPP Plugin packages
       id: get-changed-npp-plugin-packages
       uses: actions/github-script@v6
@@ -95,6 +102,38 @@ jobs:
           core.setOutput('count', changedPackages.length)
           fs.appendFileSync('changed-packages.tmp.txt', '\n\n' + changedPackages.join('\n'), 'utf8')
 
+    - name: Generate Notepad++ plugin packages
+      if: ${{steps.get-changed-npp-plugin-packages.outputs.count > 0}}
+      uses: actions/github-script@v6
+      with:
+        script: |
+          require(process.cwd() + '/npp-plugins-generate')
+
+
+    # Process generic changed packages:
+    - name: Get changed files
+      id: get-changed-files
+      run: |
+        calculate-diff-from-last-publish-commit
+
+    - name: Get changed packages
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs')
+          const packageNames = fs.readdirSync('.')
+            .filter(file => !file.startsWith('.'))
+            .filter(packageName => fs.existsSync(`${packageName}/${packageName}.nuspec`))
+          core.info(`packageNames: ${packageNames.join(' ')}`)
+          const changedFiles = process.env.CHANGED_FILES.split(':').map(it => it.trim()).filter(it => !!it.length)
+          core.info(`changedFiles: ${changedFiles.join(' ')}`)
+          const changedPackages = packageNames
+            .filter(packageName => changedFiles.some(file => file.startsWith(`${packageName}/`)))
+          core.info(`changedPackages: ${changedPackages.join(' ')}`)
+          fs.appendFileSync('changed-packages.tmp.txt', '\n\n' + changedPackages.join('\n'), 'utf8')
+
+
+    # Canonize the list of changed packages:
     - name: Process changed-packages.tmp.txt file
       id: get-changed-packages
       uses: actions/github-script@v6
@@ -108,21 +147,6 @@ jobs:
           core.info(`changedPackages: ${changedPackages.join(' ')}`)
           core.setOutput('count', changedPackages.length)
           fs.writeFileSync('changed-packages.tmp.txt', changedPackages.join('\n'), 'utf8')
-
-
-    # Generate packages:
-    - name: Generate JDK packages
-      if: ${{steps.get-changed-jdk-packages.outputs.count > 0}}
-      uses: actions/github-script@v6
-      with:
-        script: |
-          require(process.cwd() + '/jdk-generate')
-    - name: Generate Notepad++ plugin packages
-      if: ${{steps.get-changed-npp-plugin-packages.outputs.count > 0}}
-      uses: actions/github-script@v6
-      with:
-        script: |
-          require(process.cwd() + '/npp-plugins-generate')
 
 
     # Build packages:

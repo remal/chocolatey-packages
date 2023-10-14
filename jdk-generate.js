@@ -5,6 +5,11 @@ const https = require('https')
 const templateDir = __dirname + '/.jdk-generate-template'
 const templateMainDir = __dirname + '/.jdk-generate-main-template'
 
+const versionsToGenerate = (process.env.JDK_VERSIONS_TO_GENERATE ?: process.argv[2] ?: '')
+    .split(/,/g)
+    .map(it => it.trim())
+    .filter(it => !!it.length)
+
 const versionsPageSize = 50
 
 async function executeLogic() {
@@ -55,6 +60,10 @@ async function executeLogic() {
     }
 
     Object.keys(allVersions).forEach((majorVersion, majorVersionIndex) => {
+        if (!!versionsToGenerate.length && !versionsToGenerate.includes(majorVersion)) {
+            return
+        }
+
         const fullVersion = allVersions[majorVersion][0]
 
         {
@@ -94,6 +103,8 @@ async function executeLogic() {
 
                     fs.writeFileSync(targetFile, content, 'utf-8')
                 })
+
+            fs.appendFileSync('changed-packages.tmp.txt', '\n\n' + packageName, 'utf8')
         }
 
         {
@@ -126,6 +137,8 @@ async function executeLogic() {
 
                     fs.writeFileSync(targetFile, content, 'utf-8')
                 })
+
+            fs.appendFileSync('changed-packages.tmp.txt', '\n\n' + packageName, 'utf8')
         }
     })
 

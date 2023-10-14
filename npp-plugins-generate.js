@@ -60,6 +60,8 @@ async function executeLogic() {
 
                 fs.writeFileSync(targetFile, content, 'utf-8')
             })
+
+        fs.appendFileSync('changed-packages.tmp.txt', '\n\n' + packageName, 'utf8')
     })
 
     process.exit(0)
