@@ -32,39 +32,18 @@ jobs:
         fetch-depth: 0
 
 
-    # Create a list of changed packages:
-    - name: Create changed-packages.tmp.txt file
+    # Initialize a list of changed packages:
+    - name: Create `changed-packages.tmp.txt` file
       run: |
         type NUL > changed-packages.tmp.txt
 
+    - name: Get changed files
+      id: get-changed-files
+      run: |
+        calculate-diff-from-last-publish-commit
+
 
     # Generate packages:
-    - name: Collect changed JDK packages
-      id: get-changed-jdk-packages
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const fs = require('fs')
-          const changedPackages = []
-          const changedFiles = process.env.CHANGED_FILES.split(':').map(it => it.trim()).filter(it => !!it.length)
-          if (changedFiles.some(file => file.includes('jdk-generate'))) {
-            const latestJdkVersion = process.env.LATEST_JDK_VERSION.split(/\./)[0] | 0
-            for (let jdkVer = 8; jdkVer <= latestJdkVersion; ++jdkVer) {
-              changedPackages.push(`remal-jdk${jdkVer}`)
-              changedPackages.push(`remal-jdk${jdkVer}-main`)
-            }
-          }
-          core.info(`changedPackages: ${changedPackages.join(' ')}`)
-          core.setOutput('count', changedPackages.length)
-          fs.appendFileSync('changed-packages.tmp.txt', '\n\n' + changedPackages.join('\n'), 'utf8')
-
-    - name: Generate JDK packages
-      if: ${{steps.get-changed-jdk-packages.outputs.count > 0}}
-      uses: actions/github-script@v6
-      with:
-        script: |
-          require(process.cwd() + '/jdk-generate')
-
     - name: Check latest JDK package
       id: check-latest-jdk-package
       uses: actions/github-script@v6
@@ -81,6 +60,33 @@ jobs:
       uses: actions/github-script@v6
       env:
         JDK_VERSIONS_TO_GENERATE: ${{env.LATEST_JDK_VERSION}}
+      with:
+        script: |
+          require(process.cwd() + '/jdk-generate')
+
+    - name: Collect changed JDK packages
+      id: get-changed-jdk-packages
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs')
+          const changedPackages = []
+          const changedFiles = (process.env.CHANGED_FILES.split(':').map(it => it.trim()).filter(it => !!it.length)
+          if (changedFiles.some(file => file.includes('jdk-generate'))) {
+            const latestJdkVersion = process.env.LATEST_JDK_VERSION.split(/\./)[0] | 0
+            for (let jdkVer = 8; jdkVer <= latestJdkVersion; ++jdkVer) {
+              changedPackages.push(`remal-jdk${jdkVer}`)
+              changedPackages.push(`remal-jdk${jdkVer}-main`)
+            }
+          }
+          core.info(`changedPackages: ${changedPackages.join(' ')}`)
+          core.setOutput('count', changedPackages.length)
+          fs.appendFileSync('changed-packages.tmp.txt', '\n\n' + changedPackages.join('\n'), 'utf8')
+          exit(1)
+
+    - name: Generate JDK packages
+      if: ${{steps.get-changed-jdk-packages.outputs.count > 0}}
+      uses: actions/github-script@v6
       with:
         script: |
           require(process.cwd() + '/jdk-generate')
@@ -111,11 +117,6 @@ jobs:
 
 
     # Process generic changed packages:
-    - name: Get changed files
-      id: get-changed-files
-      run: |
-        calculate-diff-from-last-publish-commit
-
     - name: Get changed packages
       uses: actions/github-script@v6
       with:
