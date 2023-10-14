@@ -33,14 +33,14 @@ jobs:
 
 
     # Initialize a list of changed packages:
-    - name: Create `changed-packages.tmp.txt` file
-      run: |
-        type NUL > changed-packages.tmp.txt
-
     - name: Get changed files
       id: get-changed-files
       run: |
         calculate-diff-from-last-publish-commit
+
+    - name: Create `changed-packages.tmp.txt` file
+      run: |
+        type NUL > changed-packages.tmp.txt
 
 
     # Generate packages:
@@ -58,8 +58,8 @@ jobs:
           core.info(`exists: ${exists}`)
           core.setOutput('exists', exists ? 'true' : 'false')
 
-    - name: Generate JDK ${{steps.check-latest-jdk-package.outputs.version}} package
-      if: ${{!steps.check-latest-jdk-package.outputs.exists}}
+    - name: Generate JDK ${{steps.check-latest-jdk-package.outputs.version}} packages
+      if: ${{steps.check-latest-jdk-package.outputs.exists != 'true'}}
       uses: actions/github-script@v6
       env:
         JDK_VERSIONS_TO_GENERATE: ${{steps.check-latest-jdk-package.outputs.version}}
