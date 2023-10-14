@@ -51,9 +51,11 @@ jobs:
         script: |
           const fs = require('fs')
           const jdkVer = process.env.LATEST_JDK_VERSION.split(/\./)[0] | 0
+          core.info(`version: ${jdkVer}`)
           core.setOutput('version', jdkVer)
           const packageNames = [`remal-jdk${jdkVer}`, `remal-jdk${jdkVer}-main`]
           const exists = packageNames.every(packageName => fs.existsSync(`${packageName}/${packageName}.nuspec`))
+          core.info(`exists: ${exists}`)
           core.setOutput('exists', exists ? 'true' : 'false')
 
     - name: Generate JDK ${{steps.check-latest-jdk-package.outputs.version}} package
