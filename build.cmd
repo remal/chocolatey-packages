@@ -39,8 +39,7 @@ if exist "%~dp0\!PACKAGE!\test-prerequisites.cmd" (
 
 rem ===========================================================================
 
-set TARGET_DIR=%TEMP%\chocolatey-packages.packed\!PACKAGE!
-rd /S /Q "!TARGET_DIR!" 2>nul
+set TARGET_DIR=%TEMP%\chocolatey-packages.packed
 mkdir "!TARGET_DIR!"
 
 rem ===========================================================================
