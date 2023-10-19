@@ -93,8 +93,8 @@ if exist "%~dp0\!PACKAGE!\.do-not-test" (
     set INSTALL_LOGGING=
     rem set INSTALL_LOGGING=--trace
 
-    echo choco install "!PACKAGE!" "--version=!CURRENT_VERSION!" --force --force-dependencies-dependencies %INSTALL_LOGGING%
-    choco install "!PACKAGE!" "--version=!CURRENT_VERSION!" --force --force-dependencies %INSTALL_LOGGING%
+    echo choco install "!PACKAGE!" "--version=!CURRENT_VERSION!" --force --force-dependencies %INSTALL_LOGGING%
+    choco install "!PACKAGE!" "--version=!CURRENT_VERSION!" --force --force %INSTALL_LOGGING%
     if !ERRORLEVEL! NEQ 0 (
         set LAST_ERRORLEVEL=!ERRORLEVEL!
         echo ::error::Command execution failed: choco install 1>&2
