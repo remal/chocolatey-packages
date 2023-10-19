@@ -153,12 +153,12 @@ if /I "!PUBLISH!" NEQ "Y" (
     )
     popd
 
-    del ".packed\%PACKAGE%.*.nupkg.bak" >nul 2>nul
-    for /F "tokens=*" %%F in ('dir ".packed\%PACKAGE%.*.nupkg" /A-D /B') do (
-        ren ".packed\%%F" "%%~nxF.bak" >nul 2>nul
-    )
-
-    copy /Y "!TARGET_DIR!" "%~dp0\.packed"
-
     git rev-parse HEAD > .last-publish.commit
 )
+
+del ".packed\%PACKAGE%.*.nupkg.bak" >nul 2>nul
+for /F "tokens=*" %%F in ('dir ".packed\%PACKAGE%.*.nupkg" /A-D /B') do (
+    ren ".packed\%%F" "%%~nxF.bak" >nul 2>nul
+)
+
+copy /Y "!TARGET_DIR!" "%~dp0\.packed"
