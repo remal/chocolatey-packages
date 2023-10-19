@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>remal-jdk17</id>
-    <!-- JDK: 17.0.8+101 -->
+    <!-- JDK: 17.0.9+9 -->
     <version>1697322770.0.0</version>
     <title>Temurin JDK 17</title>
     <description>Temurin JDK 17</description>
