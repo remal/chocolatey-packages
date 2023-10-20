@@ -103,8 +103,8 @@ if exist "%~dp0\!PACKAGE!\.do-not-test" (
         exit /B !LAST_ERRORLEVEL!
     )
 
-    echo choco uninstall "!PACKAGE!" --force --force-dependencies %INSTALL_LOGGING%
-    choco uninstall "!PACKAGE!" --force --force-dependencies %INSTALL_LOGGING%
+    echo choco uninstall "!PACKAGE!" --force %INSTALL_LOGGING%
+    choco uninstall "!PACKAGE!" --force %INSTALL_LOGGING%
     if !ERRORLEVEL! NEQ 0 (
         set LAST_ERRORLEVEL=!ERRORLEVEL!
         echo ::error::Command execution failed: choco uninstall 1>&2
