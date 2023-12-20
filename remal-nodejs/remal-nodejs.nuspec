@@ -7,7 +7,7 @@
     <description>NodeJS</description>
     <authors>Semyon Levin</authors>
     <dependencies>
-      <dependency id="nodejs.install" version="21.4.0" />
+      <dependency id="nodejs.install" version="21.5.0" />
     </dependencies>
   </metadata>
   <files>
