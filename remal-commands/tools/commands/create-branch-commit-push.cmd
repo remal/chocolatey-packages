@@ -28,9 +28,7 @@ if exist .git\ (
     )
 )
 
-popd
-
-call c:\Users\Semyon_Levin\projects\.mine\chocolatey-packages\remal-commands\tools\commands\pause-if-not-interactive.cmd
+call pause-if-not-interactive
 
 exit /b 0
 
