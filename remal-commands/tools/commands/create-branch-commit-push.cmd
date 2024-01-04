@@ -28,8 +28,6 @@ if exist .git\ (
     )
 )
 
-call pause-if-not-interactive
-
 exit /b 0
 
 
