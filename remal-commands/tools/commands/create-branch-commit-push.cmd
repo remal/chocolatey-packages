@@ -14,11 +14,18 @@ echo.
 set GIT_TERMINAL_PROMPT=0
 set GIT_ASK_YESNO=false
 
-for /F "tokens=*" %%G in ('dir .git /AD /S /B') do (
-    call :processGitDir "%%G"
+if exist .git\ (
+    call :processGitDir ".git"
     if !ERRORLEVEL! neq 0 ( exit /b !ERRORLEVEL! )
     echo.
     echo.
+) else (
+    for /F "tokens=*" %%G in ('dir .git /AD /S /B') do (
+        call :processGitDir "%%G"
+        if !ERRORLEVEL! neq 0 ( exit /b !ERRORLEVEL! )
+        echo.
+        echo.
+    )
 )
 
 popd
