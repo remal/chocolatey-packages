@@ -8,11 +8,11 @@ $assetsToCopy = 'plugins'
 $packageArgs = @{
     PackageName = 'remal-npp-jstool'
     UnzipLocation = "${toolsPath}/plugins/JSMinNPP"
-    Url64bit = 'https://sourceforge.net/projects/jsminnpp/files/Uni/JSToolNPP.1.2311.0.uni.64.zip'
-    Checksum64 = 'c11d28501fb7301ffcc1ff6ffb5635c6ebe0cab6d0baedb763c82cfe2e76f9ea'
+    Url64bit = 'https://sourceforge.net/projects/jsminnpp/files/Uni/JSToolNPP.1.2312.0.uni.64.zip'
+    Checksum64 = 'bc819fad1a12a6a29392ad67dfb88d730bb8ac4ecee98f47bb73a0fab387c63e'
     ChecksumType64 = 'sha256'
-    Url = 'https://sourceforge.net/projects/jsminnpp/files/Uni/JSToolNPP.1.2311.0.uni.32.zip'
-    Checksum = '0b6a5cc5e99bdcbce6d198267eafc21ede966b533a0178ac896204661080dd33'
+    Url = 'https://sourceforge.net/projects/jsminnpp/files/Uni/JSToolNPP.1.2312.0.uni.32.zip'
+    Checksum = 'dc46e2bf466bd6431351e73bc332e47134b5e04d3c79cfc4738b79ecfed050ed'
     ChecksumType = 'sha256'
     SoftwareName = 'remal-npp-jstool*'
 }
