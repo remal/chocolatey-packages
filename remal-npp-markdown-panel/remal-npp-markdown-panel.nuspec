@@ -8,7 +8,7 @@
     <description>Notepad++ NppMarkdownPanel plugin</description>
     <authors>Semyon Levin</authors>
     <dependencies>
-      <dependency id="notepadplusplus.install" version="8.6.2" />
+      <dependency id="notepadplusplus.install" version="8.6.3" />
       <dependency id="remal-packages.extension" version="1695169326.0.0" />
     </dependencies>
   </metadata>
