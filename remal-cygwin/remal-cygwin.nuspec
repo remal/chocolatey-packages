@@ -7,7 +7,7 @@
     <description>Cygwin with consigured PATH</description>
     <authors>Semyon Levin</authors>
     <dependencies>
-      <dependency id="Cygwin" version="3.5.0" />
+      <dependency id="Cygwin" version="3.5.1" />
       <dependency id="remal-packages.extension" version="1695169326.0.0" />
     </dependencies>
   </metadata>
