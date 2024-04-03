@@ -41,12 +41,17 @@ async function executeLogic() {
     for (let majorVersionIndex = 0; majorVersionIndex < majorVersions.length; ++majorVersionIndex) {
         const majorVersion = majorVersions[majorVersionIndex] | 0
         const fullVersion = allVersions[majorVersion][0]
+        const semver = fullVersion.replace(/[^\d.].*/, '')
+        const semverParts = semver.split(/\./g)
+            .map(it => it | 0)
+        const nextSemverParts = [...semverParts]
+        nextSemverParts[nextSemverParts.length - 1] = nextSemverParts[nextSemverParts.length - 1] + 1
+        const nextSemver = nextSemverParts.join('.')
         //console.log('fullVersion', fullVersion)
-        const versionRange = `[${fullVersion.replace(/\+.*/, '')},${majorVersion + 1})`
+        const versionRange = `[${semver},${nextSemver})`
         //console.log('versionRange', versionRange)
-        const versionRangeEncoded = encodeURIComponent(versionRange)
 
-        const assetsContent = await getHttp(`https://api.adoptium.net/v3/assets/version/${versionRangeEncoded}?semver=false&os=windows&vendor=eclipse&release_type=ga&heap_size=normal&image_type=jdk&jvm_impl=hotspot&project=jdk&sort_method=DATE&sort_order=DESC&page_size=20&page=0`)
+        const assetsContent = await getHttp(`https://api.adoptium.net/v3/assets/version/${encodeURIComponent(versionRange)}?semver=false&os=windows&vendor=eclipse&release_type=ga&heap_size=normal&image_type=jdk&jvm_impl=hotspot&project=jdk&sort_method=DATE&sort_order=DESC&page_size=20&page=0`)
         const assets = JSON.parse(assetsContent)
 
         const installer64 = assets.flatMap(it => it.binaries)
