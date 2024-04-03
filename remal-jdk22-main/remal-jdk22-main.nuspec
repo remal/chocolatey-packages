@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>remal-jdk21</id>
-    <!-- JDK: 21.0.2+13.0.LTS -->
+    <id>remal-jdk22-main</id>
+    <!-- JDK: 22.0.0+36 -->
     <version>1712175266.0.0</version>
-    <title>Temurin JDK 21</title>
-    <description>Temurin JDK 21</description>
-    <authors>Adoptium</authors>
+    <title>Temurin JDK 22 as a main JDK on the machine</title>
+    <description>Temurin JDK 22 as a main JDK on the machine</description>
+    <authors>Semyon Levin</authors>
     <dependencies>
+      <dependency id="remal-jdk22" version="1712175266.0.0" />
       <dependency id="remal-packages.extension" version="1695169326.0.0" />
     </dependencies>
   </metadata>

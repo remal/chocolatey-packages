@@ -1,7 +1,7 @@
 ﻿$jdkArgs = @{
     version = '21'
-    url64bit = 'https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21%2B35/OpenJDK21U-jdk_x64_windows_hotspot_21_35.msi'
-    checksum64bit = '420b09998ae215154b6665c4d8167a74fd99eb3d4d85d5657ba317666e65e301'
+    url64bit = 'https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.2%2B13/OpenJDK21U-jdk_x64_windows_hotspot_21.0.2_13.msi'
+    checksum64bit = 'd0c53b1bfa741b7f6484200faf8452e5a779357c2a29aa6b0dfdedf7173e903f'
     url32bit = ''
     checksum32bit = ''
 }

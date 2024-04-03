@@ -3,12 +3,12 @@
   <metadata>
     <id>remal-jdk19-main</id>
     <!-- JDK: 19.0.2+7 -->
-    <version>1697322770.0.0</version>
+    <version>1712175266.0.0</version>
     <title>Temurin JDK 19 as a main JDK on the machine</title>
     <description>Temurin JDK 19 as a main JDK on the machine</description>
     <authors>Semyon Levin</authors>
     <dependencies>
-      <dependency id="remal-jdk19" version="1697322770.0.0" />
+      <dependency id="remal-jdk19" version="1712175266.0.0" />
       <dependency id="remal-packages.extension" version="1695169326.0.0" />
     </dependencies>
   </metadata>
