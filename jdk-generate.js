@@ -15,10 +15,15 @@ const versionsPageSize = 50
 async function executeLogic() {
     const allVersions = {}
     for (let pageNumber = 0; pageNumber <= 10000; ++pageNumber) {
-        const page = JSON.parse(await getHttp(`https://api.adoptium.net/v3/info/release_versions?image_type=jdk&vendor=eclipse&release_type=ga&semver=false&sort_method=DATE&sort_order=DESC&page_size=${versionsPageSize}&page=${pageNumber}`))
+        const pageContent = await getHttp(`https://api.adoptium.net/v3/info/release_versions?image_type=jdk&vendor=eclipse&release_type=ga&semver=false&sort_method=DATE&sort_order=DESC&page_size=${versionsPageSize}&page=${pageNumber}`)
+        if (pageContent == null) {
+            break
+        }
+
+        const page = JSON.parse(pageContent)
         const pageVersions = page.versions ?? []
         pageVersions.forEach(version => {
-            const major = version.major
+            const major = version.major | 0
             const versionsForMajor = allVersions[major] = allVersions[major] ?? []
             if (!versionsForMajor.includes(version.semver)) {
                 versionsForMajor.push(version.semver)
@@ -34,11 +39,15 @@ async function executeLogic() {
     const installers64 = []
     const installers32 = []
     for (let majorVersionIndex = 0; majorVersionIndex < majorVersions.length; ++majorVersionIndex) {
-        const majorVersion = majorVersions[majorVersionIndex]
+        const majorVersion = majorVersions[majorVersionIndex] | 0
         const fullVersion = allVersions[majorVersion][0]
         //console.log('fullVersion', fullVersion)
+        const versionRange = `[${fullVersion.replace(/\+.*/, '')},${majorVersion + 1})`
+        //console.log('versionRange', versionRange)
+        const versionRangeEncoded = encodeURIComponent(versionRange)
 
-        const assets = JSON.parse(await getHttp(`https://api.adoptium.net/v3/assets/version/${encodeURIComponent(fullVersion)}?semver=true&os=windows&vendor=eclipse&heap_size=normal&image_type=jdk&jvm_impl=hotspot&project=jdk&sort_method=DATE&sort_order=DESC&page_size=20&page=0`))
+        const assetsContent = await getHttp(`https://api.adoptium.net/v3/assets/version/${versionRangeEncoded}?semver=false&os=windows&vendor=eclipse&release_type=ga&heap_size=normal&image_type=jdk&jvm_impl=hotspot&project=jdk&sort_method=DATE&sort_order=DESC&page_size=20&page=0`)
+        const assets = JSON.parse(assetsContent)
 
         const installer64 = assets.flatMap(it => it.binaries)
             .filter(it => it.architecture === 'x64')
@@ -149,17 +158,22 @@ executeLogic()
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-function getHttp(url) {
+function getHttp(url, ignore404) {
     return new Promise((resolve, reject) => {
         const body = []
         function callback(response) {
             if (301 <= response.statusCode && response.statusCode <= 302) {
-                send(response.headers.location);
+                send(response.headers.location)
+                return
+            }
+
+            if (!!ignore404 && response.statusCode === 404) {
+                resolve(null)
                 return
             }
 
             if (response.statusCode !== 200) {
-                reject(`Status code: ${response.statusCode}`)
+                reject(new Error(`${url}: status code: ${response.statusCode}`))
                 return
             }
 
