@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>remal-jdk22-main</id>
-    <!-- JDK: 22.0.1+8 -->
+    <!-- JDK: 22.0.2+9 -->
     <version>1713541787.0.0</version>
     <title>Temurin JDK 22 as a main JDK on the machine</title>
     <description>Temurin JDK 22 as a main JDK on the machine</description>
