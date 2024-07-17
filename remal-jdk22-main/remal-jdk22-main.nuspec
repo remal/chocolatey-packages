@@ -3,12 +3,12 @@
   <metadata>
     <id>remal-jdk22-main</id>
     <!-- JDK: 22.0.2+9 -->
-    <version>1713541787.0.0</version>
+    <version>1721245108.0.0</version>
     <title>Temurin JDK 22 as a main JDK on the machine</title>
     <description>Temurin JDK 22 as a main JDK on the machine</description>
     <authors>Semyon Levin</authors>
     <dependencies>
-      <dependency id="remal-jdk22" version="1713541787.0.0" />
+      <dependency id="remal-jdk22" version="1721245108.0.0" />
       <dependency id="remal-packages.extension" version="1695169326.0.0" />
     </dependencies>
   </metadata>
