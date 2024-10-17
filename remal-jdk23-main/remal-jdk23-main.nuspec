@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>remal-jdk23-main</id>
-    <!-- JDK: 23.0.0+37 -->
+    <!-- JDK: 23.0.1+11 -->
     <version>1726668391.0.0</version>
     <title>Temurin JDK 23 as a main JDK on the machine</title>
     <description>Temurin JDK 23 as a main JDK on the machine</description>
