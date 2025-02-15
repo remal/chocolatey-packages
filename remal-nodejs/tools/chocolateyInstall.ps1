@@ -10,12 +10,12 @@ foreach ($identity in $identities) {
 if ($? -eq $false) { throw "<Error Exit>" }
 
 
-$yarnVersion = '4.6.0' # renovate: datasource=npm depName=@yarnpkg/cli
+# $yarnVersion = '4.6.0' # renovate: datasource=npm depName=@yarnpkg/cli
 
-$targetDir = "${env:LOCALAPPDATA}\node\corepack\yarn\${yarnVersion}"
-$targetFile = "${targetDir}\yarn.js"
-$url = "https://repo.yarnpkg.com/${yarnVersion}/packages/yarnpkg-cli/bin/yarn.js"
-Get-WebFile -FileName $targetFile -Url $url
+# $targetDir = "${env:LOCALAPPDATA}\node\corepack\yarn\${yarnVersion}"
+# $targetFile = "${targetDir}\yarn.js"
+# $url = "https://repo.yarnpkg.com/${yarnVersion}/packages/yarnpkg-cli/bin/yarn.js"
+# Get-WebFile -FileName $targetFile -Url $url
 
-& corepack install --global "yarn@${yarnVersion}"
-if ($? -eq $false) { throw "<Error Exit>" }
+# & corepack install --global "yarn@${yarnVersion}"
+# if ($? -eq $false) { throw "<Error Exit>" }
