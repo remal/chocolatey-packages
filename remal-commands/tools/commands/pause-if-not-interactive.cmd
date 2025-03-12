@@ -1,1 +1,2 @@
-@for %%x in (%cmdcmdline%) do @if /i "%%~x"=="/c" @pause
+@echo %CMDCMDLINE% | @findstr /I /C:"\cmd.exe /c" >nul 2>&1
+@if %errorlevel% == 0 pause
