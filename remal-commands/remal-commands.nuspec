@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>remal-commands</id>
-    <version>1741771387.0.0</version>
+    <version>1741772841.0.0</version>
     <title>Remal batch commands</title>
     <description>Remal batch commands</description>
     <authors>Semyon Levin</authors>
