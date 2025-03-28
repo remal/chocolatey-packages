@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>remal-jdk24</id>
+    <!-- JDK: 24.0.0+36 -->
+    <version>1743162699.0.0</version>
+    <title>Temurin JDK 24</title>
+    <description>Temurin JDK 24</description>
+    <authors>Adoptium</authors>
+    <dependencies>
+      <dependency id="remal-packages.extension" version="1695169326.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
