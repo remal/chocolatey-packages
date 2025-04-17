@@ -2,7 +2,6 @@
 
 # All Status Checks should be listed explicitly (see https://docs.mergify.io/conditions/#about-status-checks):
 #   `build` - .github/workflows/build.yml
-#   `WIP` - https://github.com/marketplace/wip
 
 pull_request_rules:
 - name: Auto merge approved
@@ -16,7 +15,6 @@ pull_request_rules:
   - -locked
   - '#changes-requested-reviews-by=0'
   - check-success=build
-  - check-success=WIP
   - '#check-pending=0'
   - '#check-neutral=0'
   - '#check-failure=0'
@@ -49,7 +47,6 @@ pull_request_rules:
   - -locked
   - '#changes-requested-reviews-by=0'
   - check-success=build
-  - check-success=WIP
   - '#check-pending=0'
   - '#check-neutral=0'
   - '#check-failure=0'
