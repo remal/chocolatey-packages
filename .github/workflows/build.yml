@@ -10,7 +10,7 @@ on:
 env:
   CHANGED_PACKAGES_FILE: 'changed-packages.tmp.txt'
   CHOCO_REMAL_PACKAGES_REPOSITORY: 'https://f.feedz.io/remal/chocolatey-packages/nuget'
-  LATEST_JDK_VERSION: 24.0.0+36
+  LATEST_JDK_VERSION: 24.0.1+9
 
 defaults:
   run:
