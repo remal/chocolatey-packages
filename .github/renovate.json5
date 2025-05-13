@@ -15,7 +15,7 @@
       ],
     },
     {
-      matchPackagePatterns: ["^remal-"],
+      matchPackageNames: ["/^remal-/"],
       separateMultipleMajor: false,
     },
     {
