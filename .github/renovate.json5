@@ -1,75 +1,108 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  extends: ["github>remal/renovate-config:global"],
-
-  "git-submodules": {
-    enabled: false, // This is in beta for now, so let's use Dependabot to update Git submodules
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'github>remal/renovate-config:global',
+  ],
+  'git-submodules': {
+    enabled: false,
   },
-
   packageRules: [
     {
-      matchDatasources: ["nuget"],
+      matchDatasources: [
+        'nuget',
+      ],
       registryUrls: [
-        "https://community.chocolatey.org/api/v2/",
-        "https://f.feedz.io/remal/chocolatey-packages/nuget",
+        'https://community.chocolatey.org/api/v2/',
+        'https://f.feedz.io/remal/chocolatey-packages/nuget',
       ],
     },
     {
-      matchPackageNames: ["/^remal-/"],
+      matchPackageNames: [
+        '/^remal-/',
+      ],
       separateMultipleMajor: false,
     },
     {
-      matchDatasources: ["java-version"],
-      major: { enabled: false },
+      matchDatasources: [
+        'java-version',
+      ],
+      major: {
+        enabled: false,
+      },
     },
     {
-      matchDatasources: ["java-version"],
-      matchFileNames: [".github/workflows/**/*.yml"],
-      //allowedVersions: "/^\\d+$/",
-      major: { enabled: true },
+      matchDatasources: [
+        'java-version',
+      ],
+      matchFileNames: [
+        '.github/workflows/**/*.yml',
+      ],
+      major: {
+        enabled: true,
+      },
     },
   ],
-
-  regexManagers: [
+  customManagers: [
     {
       customType: 'regex',
-      fileMatch: ['\\.nuspec$'],
-      matchStrings: ["<dependency\\s+id=\"(?<depName>[^\"]+)\"\\s+version=\"(?<currentValue>[^\"]+)\"\\s*/>"],
-      datasourceTemplate: "nuget",
+      managerFilePatterns: [
+        '/\\.nuspec$/',
+      ],
+      matchStrings: [
+        '<dependency\\s+id="(?<depName>[^"]+)"\\s+version="(?<currentValue>[^"]+)"\\s*/>',
+      ],
+      datasourceTemplate: 'nuget',
     },
     {
       customType: 'regex',
-      fileMatch: ['\\.ps(m)?1$'],
-      matchStrings: ["\\$\\w+[ ]*=[ ]*(['\"])(?<currentValue>[^'\"]*)(['\"])[ ]*#[ ]*renovate[ ]*:[ ]*datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?"],
-      versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
+      managerFilePatterns: [
+        '/\\.ps(m)?1$/',
+      ],
+      matchStrings: [
+        '\\$\\w+[ ]*=[ ]*([\'"])(?<currentValue>[^\'"]*)([\'"])[ ]*#[ ]*renovate[ ]*:[ ]*datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?',
+      ],
+      versioningTemplate: '{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}',
     },
     {
       customType: 'regex',
-      fileMatch: ['^\\.github/workflows/.+\\.yml$'],
-      matchStrings: ["LATEST_JDK_VERSION: (?<currentValue>[\\w.+]+)"],
+      managerFilePatterns: [
+        '/^\\.github/workflows/.+\\.yml$/',
+      ],
+      matchStrings: [
+        'LATEST_JDK_VERSION: (?<currentValue>[\\w.+]+)',
+      ],
       depNameTemplate: 'java-jdk',
-      datasourceTemplate: "java-version",
+      datasourceTemplate: 'java-version',
     },
     {
       customType: 'regex',
-      fileMatch: ['\\.nuspec$'],
-      matchStrings: ["<!--[ ]*JDK:[ ]*(?<currentValue>[^#]+?)[ ]*-->"],
+      managerFilePatterns: [
+        '/\\.nuspec$/',
+      ],
+      matchStrings: [
+        '<!--[ ]*JDK:[ ]*(?<currentValue>[^#]+?)[ ]*-->',
+      ],
       depNameTemplate: 'java-jdk',
-      datasourceTemplate: "java-version",
+      datasourceTemplate: 'java-version',
     },
     {
       customType: 'regex',
-      fileMatch: ['\\.nuspec$'],
-      matchStrings: ["<!--[ ]*NPP Plugin:[ ]*(?<depName>[^:#>]+):(?<currentValue>[^#]+?)[ ]*-->"],
-      datasourceTemplate: "custom.npp-plugin",
+      managerFilePatterns: [
+        '/\\.nuspec$/',
+      ],
+      matchStrings: [
+        '<!--[ ]*NPP Plugin:[ ]*(?<depName>[^:#>]+):(?<currentValue>[^#]+?)[ ]*-->',
+      ],
+      datasourceTemplate: 'custom.npp-plugin',
     },
   ],
-
   customDatasources: {
     'npp-plugin': {
       defaultRegistryUrlTemplate: 'https://github.com/notepad-plus-plus/nppPluginList/raw/master/src/pl.x64.json',
       format: 'json',
-      transformTemplates: ["{ 'releases': [ `npp-plugins`.$[`folder-name` = '{{packageName}}'].{'version': version} ] }"],
+      transformTemplates: [
+        "{ 'releases': [ `npp-plugins`.$[`folder-name` = '{{packageName}}'].{'version': version} ] }",
+      ],
     },
   },
 }
