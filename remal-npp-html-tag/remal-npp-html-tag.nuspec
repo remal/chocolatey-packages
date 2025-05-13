@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>remal-npp-dspellcheck</id>
-    <!-- NPP Plugin: DSpellCheck:1.5.0 -->
+    <id>remal-npp-html-tag</id>
+    <!-- NPP Plugin: HTMLTag:1.5.2.0 -->
     <version>1747131203.0.0</version>
-    <title>Notepad++ DSpellCheck plugin</title>
-    <description>Notepad++ DSpellCheck plugin</description>
+    <title>Notepad++ HTMLTag plugin</title>
+    <description>Notepad++ HTMLTag plugin</description>
     <authors>Semyon Levin</authors>
     <dependencies>
       <dependency id="notepadplusplus.install" version="8.6.5" />
