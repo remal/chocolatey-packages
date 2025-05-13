@@ -32,28 +32,33 @@
 
   regexManagers: [
     {
+      customType: 'regex',
       fileMatch: ['\\.nuspec$'],
       matchStrings: ["<dependency\\s+id=\"(?<depName>[^\"]+)\"\\s+version=\"(?<currentValue>[^\"]+)\"\\s*/>"],
       datasourceTemplate: "nuget",
     },
     {
+      customType: 'regex',
       fileMatch: ['\\.ps(m)?1$'],
       matchStrings: ["\\$\\w+[ ]*=[ ]*(['\"])(?<currentValue>[^'\"]*)(['\"])[ ]*#[ ]*renovate[ ]*:[ ]*datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?"],
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
     },
     {
+      customType: 'regex',
       fileMatch: ['^\\.github/workflows/.+\\.yml$'],
       matchStrings: ["LATEST_JDK_VERSION: (?<currentValue>[\\w.+]+)"],
       depNameTemplate: 'java-jdk',
       datasourceTemplate: "java-version",
     },
     {
+      customType: 'regex',
       fileMatch: ['\\.nuspec$'],
       matchStrings: ["<!--[ ]*JDK:[ ]*(?<currentValue>[^#]+?)[ ]*-->"],
       depNameTemplate: 'java-jdk',
       datasourceTemplate: "java-version",
     },
     {
+      customType: 'regex',
       fileMatch: ['\\.nuspec$'],
       matchStrings: ["<!--[ ]*NPP Plugin:[ ]*(?<depName>[^:#>]+):(?<currentValue>[^#]+?)[ ]*-->"],
       datasourceTemplate: "custom.npp-plugin",
