@@ -27,6 +27,10 @@ module.exports = [
     "id": "NppMarkdownPanel",
     "packageName": "remal-npp-markdown-panel",
   },
+  {
+    "id": "HTMLTag",
+    "packageName": "remal-npp-html-tag",
+  },
 ]
 
 
