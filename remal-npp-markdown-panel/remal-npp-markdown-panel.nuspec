@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>remal-npp-markdown-panel</id>
-    <!-- NPP Plugin: NppMarkdownPanel:0.7.3 -->
+    <!-- NPP Plugin: NppMarkdownPanel:0.9.0 -->
     <version>1747340033.0.0</version>
     <title>Notepad++ NppMarkdownPanel plugin</title>
     <description>Notepad++ NppMarkdownPanel plugin</description>
