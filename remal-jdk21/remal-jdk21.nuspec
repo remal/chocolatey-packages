@@ -3,7 +3,7 @@
   <metadata>
     <id>remal-jdk21</id>
     <!-- JDK: 21.0.8+9.0.LTS -->
-    <version>1744917824.0.0</version>
+    <version>1752750400.0.0</version>
     <title>Temurin JDK 21</title>
     <description>Temurin JDK 21</description>
     <authors>Adoptium</authors>
