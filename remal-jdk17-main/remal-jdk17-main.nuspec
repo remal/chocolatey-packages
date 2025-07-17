@@ -3,12 +3,12 @@
   <metadata>
     <id>remal-jdk17-main</id>
     <!-- JDK: 17.0.16+8 -->
-    <version>1744917394.0.0</version>
+    <version>1752788937.0.0</version>
     <title>Temurin JDK 17 as a main JDK on the machine</title>
     <description>Temurin JDK 17 as a main JDK on the machine</description>
     <authors>Semyon Levin</authors>
     <dependencies>
-      <dependency id="remal-jdk17" version="1744917394.0.0" />
+      <dependency id="remal-jdk17" version="1752788937.0.0" />
       <dependency id="remal-packages.extension" version="1695169326.0.0" />
     </dependencies>
   </metadata>
