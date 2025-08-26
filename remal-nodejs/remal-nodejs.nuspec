@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>remal-nodejs</id>
-    <version>1755716030.0.0</version>
+    <version>1756216599.0.0</version>
     <title>NodeJS</title>
     <description>NodeJS</description>
     <authors>Semyon Levin</authors>
