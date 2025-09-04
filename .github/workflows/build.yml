@@ -46,7 +46,7 @@ jobs:
     # Generate packages:
     - name: Check latest JDK package
       id: check-latest-jdk-package
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           const fs = require('fs')
@@ -60,7 +60,7 @@ jobs:
 
     - name: Generate JDK ${{steps.check-latest-jdk-package.outputs.version}} packages
       if: ${{steps.check-latest-jdk-package.outputs.exists != 'true'}}
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       env:
         JDK_VERSIONS_TO_GENERATE: ${{steps.check-latest-jdk-package.outputs.version}}
       with:
@@ -69,7 +69,7 @@ jobs:
 
     - name: Collect changed JDK packages
       id: get-changed-jdk-packages
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           const fs = require('fs')
@@ -88,14 +88,14 @@ jobs:
 
     - name: Generate JDK packages
       if: ${{steps.get-changed-jdk-packages.outputs.count > 0}}
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           require(process.cwd() + '/jdk-generate')
 
     - name: Collect changed NPP Plugin packages
       id: get-changed-npp-plugin-packages
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           const fs = require('fs')
@@ -112,7 +112,7 @@ jobs:
 
     - name: Generate Notepad++ plugin packages
       if: ${{steps.get-changed-npp-plugin-packages.outputs.count > 0}}
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           require(process.cwd() + '/npp-plugins-generate')
@@ -120,7 +120,7 @@ jobs:
 
     # Process general changed packages:
     - name: Get general changed packages
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           const fs = require('fs')
@@ -139,7 +139,7 @@ jobs:
     # Canonize the list of changed packages:
     - name: Process `changed-packages.tmp.txt` file
       id: get-changed-packages
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           const fs = require('fs')
@@ -155,7 +155,7 @@ jobs:
     # Build packages:
     - name: Update versions
       if: ${{steps.get-changed-packages.outputs.count > 0}}
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           require(process.cwd() + '/update-versions')
