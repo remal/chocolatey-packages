@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>remal-jdk25-main</id>
+    <!-- JDK: 25.0.0+36.0.LTS -->
+    <version>1758647322.0.0</version>
+    <title>Temurin JDK 25 as a main JDK on the machine</title>
+    <description>Temurin JDK 25 as a main JDK on the machine</description>
+    <authors>Semyon Levin</authors>
+    <dependencies>
+      <dependency id="remal-jdk25" version="1758647322.0.0" />
+      <dependency id="remal-packages.extension" version="1695169326.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
