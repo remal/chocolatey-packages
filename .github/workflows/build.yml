@@ -7,6 +7,10 @@ on:
   pull_request: { }
   workflow_dispatch: { }
 
+concurrency:
+  group: build-${{github.ref}}
+  cancel-in-progress: false
+
 env:
   CHANGED_PACKAGES_FILE: 'changed-packages.tmp.txt'
   CHOCO_REMAL_PACKAGES_REPOSITORY: 'https://f.feedz.io/remal/chocolatey-packages/nuget'
