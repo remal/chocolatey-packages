@@ -7,7 +7,7 @@
     <description>NodeJS</description>
     <authors>Semyon Levin</authors>
     <dependencies>
-      <dependency id="nodejs.install" version="24.0.2" />
+      <dependency id="nodejs.install" version="24.9.0" />
       <dependency id="visualstudio2022-workload-vctools" />
     </dependencies>
   </metadata>
