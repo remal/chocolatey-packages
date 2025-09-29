@@ -8,11 +8,11 @@ $assetsToCopy = 'plugins'
 $packageArgs = @{
     PackageName = 'remal-npp-markdown-panel'
     UnzipLocation = "${toolsPath}/plugins/NppMarkdownPanel"
-    Url64bit = 'https://github.com/mohzy83/NppMarkdownPanel/releases/download/0.7.3.1/NppMarkdownPanel-0.7.3.0-x64.zip'
-    Checksum64 = 'f599299a0020cd0ceb812bfe5c52aa5f6c29bf5628ca8b00dff70decb0193e89'
+    Url64bit = 'https://github.com/mohzy83/NppMarkdownPanel/releases/download/0.9.0/NppMarkdownPanel-0.9.0.0-x64.zip'
+    Checksum64 = '134c2eaf09f72097bf17e2cc41d8a63e57ca4a3d5a221f1e867538629d92189c'
     ChecksumType64 = 'sha256'
-    Url = 'https://github.com/mohzy83/NppMarkdownPanel/releases/download/0.7.3.1/NppMarkdownPanel-0.7.3.0-x86.zip'
-    Checksum = '477c3056692fb29b588b07aaa6d18a4079a5f2ff781de63c8d23a5f37830f3d5'
+    Url = 'https://github.com/mohzy83/NppMarkdownPanel/releases/download/0.9.0/NppMarkdownPanel-0.9.0.0-x86.zip'
+    Checksum = '45004f2b0285365de03c246ead6295462b0898004461c313be14be519c522c34'
     ChecksumType = 'sha256'
     SoftwareName = 'remal-npp-markdown-panel*'
 }

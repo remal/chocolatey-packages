@@ -2,8 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>remal-npp-html-tag</id>
-    <!-- NPP Plugin: HTMLTag:1.5.2.0 -->
-    <version>1747340033.0.0</version>
+    <!-- NPP Plugin: HTMLTag:1.5.4.0 -->
+    <version>1759111220.0.0</version>
     <title>Notepad++ HTMLTag plugin</title>
     <description>Notepad++ HTMLTag plugin</description>
     <authors>Semyon Levin</authors>
