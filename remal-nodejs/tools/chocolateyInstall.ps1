@@ -10,7 +10,7 @@ foreach ($identity in $identities) {
 if ($? -eq $false) { throw "<Error Exit>" }
 
 
-# $yarnVersion = '4.11.0' # renovate: datasource=npm depName=@yarnpkg/cli
+# $yarnVersion = '4.12.0' # renovate: datasource=npm depName=@yarnpkg/cli
 
 # $targetDir = "${env:LOCALAPPDATA}\node\corepack\yarn\${yarnVersion}"
 # $targetFile = "${targetDir}\yarn.js"
