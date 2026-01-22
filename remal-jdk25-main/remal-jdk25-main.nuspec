@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>remal-jdk25-main</id>
-    <!-- JDK: 25.0.1+8.0.LTS -->
+    <!-- JDK: 25.0.2+10.0.LTS -->
     <version>1761313096.0.0</version>
     <title>Temurin JDK 25 as a main JDK on the machine</title>
     <description>Temurin JDK 25 as a main JDK on the machine</description>
