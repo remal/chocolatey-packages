@@ -17,7 +17,7 @@ concurrency:
 env:
   CHANGED_PACKAGES_FILE: 'changed-packages.tmp.txt'
   CHOCO_REMAL_PACKAGES_REPOSITORY: 'https://f.feedz.io/remal/chocolatey-packages/nuget'
-  LATEST_JDK_VERSION: 25.0.2+10.0.LTS
+  LATEST_JDK_VERSION: 25.0.3+9.0.LTS
 
 defaults:
   run:
