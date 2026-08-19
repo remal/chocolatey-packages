@@ -3,12 +3,12 @@
   <metadata>
     <id>remal-jdk25-main</id>
     <!-- JDK: 25.0.4+101.0.LTS -->
-    <version>1785178972.0.0</version>
+    <version>1787156324.0.0</version>
     <title>Temurin JDK 25 as a main JDK on the machine</title>
     <description>Temurin JDK 25 as a main JDK on the machine</description>
     <authors>Semyon Levin</authors>
     <dependencies>
-      <dependency id="remal-jdk25" version="1785178972.0.0" />
+      <dependency id="remal-jdk25" version="1787156324.0.0" />
       <dependency id="remal-packages.extension" version="1695169326.0.0" />
     </dependencies>
   </metadata>
